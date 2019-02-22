@@ -1,18 +1,26 @@
 package com.m2i.tp.entity;
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 @Entity
 public class Categorie {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+
 	@Column(length = 64)
 	private String label;
+
+	// Le "@OneToMany" symétrique du "@ManyToOne" est facultatif
+	@OneToMany(mappedBy = "categorie") // valeur de mappedBy ="nom_java_relation_inverse"
+	private List<Produit> produits;// avec get/set
 
 	public Categorie() {
 		super();
@@ -43,6 +51,14 @@ public class Categorie {
 
 	public void setLabel(String label) {
 		this.label = label;
+	}
+
+	public List<Produit> getProduits() {
+		return produits;
+	}
+
+	public void setProduits(List<Produit> produits) {
+		this.produits = produits;
 	}
 
 }
