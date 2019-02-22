@@ -1,21 +1,25 @@
 package com.m2i.tp.entity;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 
 @Entity
 @NamedQueries({
 	@NamedQuery(name="Produit.produitsByCategorieId",
-			    query="SELECT p FROM Produit p WHERE p.categorie.id = :catId "),
+			    query="SELECT p FROM Produit p INNER JOIN p.categories c WHERE c.id = :catId "),
 	@NamedQuery(name="Produit.produitsByCategorieName",
-	            query="SELECT p FROM Produit p WHERE p.categorie.label = ?1 ")
+	            query="SELECT p FROM Produit p INNER JOIN p.categories c WHERE c.label = ?1 ")
 })
 public class Produit {
 	@Id
@@ -25,15 +29,36 @@ public class Produit {
 	// automatiquement en mémoire dans l'attribut numero
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long numero;
+	
+	//méthode falculatative mais pratique (fiable et facile à appeler):
+		public void addCategorie(Categorie c) {
+			if(this.categories==null) {
+				this.categories=new ArrayList<Categorie>();
+			}
+			this.categories.add(c);
+		}
 
 	@Column(name = "label", length = 64) // VARCHAR(64)
 	private String label;
 
 	private double prix;
 
+	/*
+	//Ancienne version 
 	@ManyToOne // Many "coté courant" to One "ce qu'il y a en dessous"
 	@JoinColumn(name = "idCategorie") // nom de la colonne "clef etrangère"
 	private Categorie categorie; // avec get/set
+	*/
+	
+	//nouvelle version :
+	@ManyToMany 
+	@JoinTable(name = "Produit_Categorie",
+	  joinColumns = {@JoinColumn(name = "produitId")},
+	  inverseJoinColumns = {@JoinColumn(name = "catId")})
+	private List<Categorie> categories; // avec get/set
+	
+	
+	
 
 	// +get/set , constructeurs , toString() , ...
 	public Produit() {
@@ -78,12 +103,14 @@ public class Produit {
 		this.prix = prix;
 	}
 
-	public Categorie getCategorie() {
-		return categorie;
+	public List<Categorie> getCategories() {
+		return categories;
 	}
 
-	public void setCategorie(Categorie categorie) {
-		this.categorie = categorie;
+	public void setCategories(List<Categorie> categories) {
+		this.categories = categories;
 	}
+
+	
 
 }

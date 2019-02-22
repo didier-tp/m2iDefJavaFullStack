@@ -77,14 +77,19 @@ public class TestDaoProduit extends TestWithEntityManager {
 	public void testProduitsByCategorieId() {
 		Categorie c1 = new Categorie(null, "livre");daoCat.createCategorie(c1);
 		Categorie c2 = new Categorie(null, "dvd");	daoCat.createCategorie(c2);
-		// ajouter 2 produits
-		Produit pA = new Produit(null, "produitA", 36.2);
-		pA.setCategorie(c1); dao.createProduit(pA);
 		
-		Produit pB = new Produit(null, "produitB", 68.2);
-		pB.setCategorie(c1); dao.createProduit(pB);
-		Produit pC = new Produit(null, "produitC", 26.2);
-		pC.setCategorie(c2); dao.createProduit(pC);
+		Categorie cE = new Categorie(null, "enfants");daoCat.createCategorie(cE);
+		Categorie cA = new Categorie(null, "adultes");	daoCat.createCategorie(cA);
+		
+		
+		// ajouter 2 produits
+		Produit pA = new Produit(null, "livre pour enfant A", 36.2);
+		pA.addCategorie(c1); pA.addCategorie(cE); dao.createProduit(pA);
+		
+		Produit pB = new Produit(null, "livre pour adulte B", 68.2);
+		pB.addCategorie(c1); pB.addCategorie(cA); dao.createProduit(pB);
+		Produit pC = new Produit(null, "dvd pour adulte C", 26.2);
+		pC.addCategorie(c2); pC.addCategorie(cA); dao.createProduit(pC);
 		// appeler produitsByCategorieId() , vérifier taille liste >= 2
 		logger.info("id c1=" + c1.getId());
 		List<Produit> listeProd = dao.produitsByCategorieId(c1.getId());
@@ -92,7 +97,6 @@ public class TestDaoProduit extends TestWithEntityManager {
 		this.reinitEntityManager();
 		logger.info("listeProd=" + listeProd);
 		Assert.assertNotNull(listeProd);
-		Assert.assertTrue(listeProd.get(0).getCategorie().getId() == c1.getId());
 		Assert.assertTrue(listeProd.size() == 2);
 		// supprimer les 2 produits ajoutés
 		// dao.deleteProduit(pA.getNumero());

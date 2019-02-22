@@ -9,7 +9,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.ManyToMany;
 
 @Entity
 public class Categorie {
@@ -21,7 +21,8 @@ public class Categorie {
 	private String label;
 
 	// Le "@OneToMany" symétrique du "@ManyToOne" est facultatif
-	@OneToMany(mappedBy = "categorie",fetch=FetchType.LAZY) // valeur de mappedBy ="nom_java_relation_inverse"
+	//@OneToMany(mappedBy = "categorie",fetch=FetchType.LAZY) // valeur de mappedBy ="nom_java_relation_inverse"
+	@ManyToMany(mappedBy = "categories",fetch=FetchType.LAZY)
 	private List<Produit> produits;// avec get/set
 
 	public Categorie() {
