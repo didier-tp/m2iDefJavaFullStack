@@ -7,8 +7,16 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 
 @Entity
+@NamedQueries({
+	@NamedQuery(name="Produit.produitsByCategorieId",
+			    query="SELECT p FROM Produit p WHERE p.categorie.id = :catId "),
+	@NamedQuery(name="Produit.produitsByCategorieName",
+	            query="SELECT p FROM Produit p WHERE p.categorie.label = ?1 ")
+})
 public class Produit {
 	@Id
 	// NB: strategy IDENTITY ok pour Mysql récent , H2, ...
@@ -38,6 +46,8 @@ public class Produit {
 		this.label = label;
 		this.prix = prix;
 	}
+
+
 
 	@Override
 	public String toString() {

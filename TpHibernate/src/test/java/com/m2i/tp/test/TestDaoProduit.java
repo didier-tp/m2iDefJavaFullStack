@@ -37,27 +37,59 @@ public class TestDaoProduit extends TestWithEntityManager {
 		((DaoProduitHibernate) dao).setEntityManager(this.entityManager);
 		((DaoCategorieHibernate) daoCat).setEntityManager(this.entityManager);
 	}
-
-	@Test
-	public void testProduitsByCategorieId() {
-		Categorie c1 = new Categorie(null, "livre");
-		daoCat.createCategorie(c1);
-		Categorie c2 = new Categorie(null, "dvd");
-		daoCat.createCategorie(c2);
+	/*
+	//Test qui ne fonctionne pas !!!!
+	public void testProduitsByCategorieIdV2() {
+		
 		// ajouter 2 produits
-		Produit pA = new Produit(null, "produitA", 36.2);
-		pA.setCategorie(c1); // rattacher le produit pA à la categorie c1
-		dao.createProduit(pA);
-		Produit pB = new Produit(null, "produitB", 68.2);
-		pB.setCategorie(c1); // rattacher le produit pB à la categorie c1
-		dao.createProduit(pB);
-		Produit pC = new Produit(null, "produitC", 26.2);
-		pC.setCategorie(c2); // rattacher le produit pA à la categorie c1
-		dao.createProduit(pC);
+				Produit pA = new Produit(null, "produitA", 36.2);
+			    dao.createProduit(pA);
+				Produit pB = new Produit(null, "produitB", 68.2);
+				dao.createProduit(pB);
+				Produit pC = new Produit(null, "produitC", 26.2);
+				dao.createProduit(pC);
+		
+		Categorie c1 = new Categorie(null, "livre");
+		c1.getProduits().add(pA);//coté mappedBy --> pas sauvegardé en base !!!!
+		c1.getProduits().add(pB);//coté mappedBy --> pas sauvegardé en base !!!!
+		daoCat.createCategorie(c1);
+		
+		Categorie c2 = new Categorie(null, "dvd");	
+		c2.getProduits().add(pC);
+		daoCat.createCategorie(c2);
+		
 		// appeler produitsByCategorieId() , vérifier taille liste >= 2
 		logger.info("id c1=" + c1.getId());
 		// List<Produit> listeProd = dao.produitsByCategorieId(c1.getId());
 		List<Produit> listeProd = dao.produitsByCategorieName("livre");
+		logger.info("listeProd=" + listeProd);
+		Assert.assertNotNull(listeProd);
+		Assert.assertTrue(listeProd.size() == 2);
+		// supprimer les 2 produits ajoutés
+		// dao.deleteProduit(pA.getNumero());
+		// dao.deleteProduit(pB.getNumero());
+	}
+	*/
+
+	
+
+	@Test
+	public void testProduitsByCategorieId() {
+		Categorie c1 = new Categorie(null, "livre");daoCat.createCategorie(c1);
+		Categorie c2 = new Categorie(null, "dvd");	daoCat.createCategorie(c2);
+		// ajouter 2 produits
+		Produit pA = new Produit(null, "produitA", 36.2);
+		pA.setCategorie(c1); dao.createProduit(pA);
+		
+		Produit pB = new Produit(null, "produitB", 68.2);
+		pB.setCategorie(c1); dao.createProduit(pB);
+		Produit pC = new Produit(null, "produitC", 26.2);
+		pC.setCategorie(c2); dao.createProduit(pC);
+		// appeler produitsByCategorieId() , vérifier taille liste >= 2
+		logger.info("id c1=" + c1.getId());
+		List<Produit> listeProd = dao.produitsByCategorieId(c1.getId());
+		//List<Produit> listeProd = dao.produitsByCategorieName("livre");
+		this.reinitEntityManager();
 		logger.info("listeProd=" + listeProd);
 		Assert.assertNotNull(listeProd);
 		Assert.assertTrue(listeProd.get(0).getCategorie().getId() == c1.getId());
@@ -74,6 +106,7 @@ public class TestDaoProduit extends TestWithEntityManager {
 		dao.createProduit(pA);
 		Produit pB = new Produit(null, "produitB", 68.2);
 		dao.createProduit(pB);
+		
 		// appeler allProduits() , vérifier taille liste >= 2
 		List<Produit> listeProd = dao.allProduits();
 		logger.debug("listeProd=" + listeProd);

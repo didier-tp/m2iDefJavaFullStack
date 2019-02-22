@@ -1,9 +1,11 @@
 package com.m2i.tp.entity;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -19,18 +21,24 @@ public class Categorie {
 	private String label;
 
 	// Le "@OneToMany" symétrique du "@ManyToOne" est facultatif
-	@OneToMany(mappedBy = "categorie") // valeur de mappedBy ="nom_java_relation_inverse"
+	@OneToMany(mappedBy = "categorie",fetch=FetchType.LAZY) // valeur de mappedBy ="nom_java_relation_inverse"
 	private List<Produit> produits;// avec get/set
 
 	public Categorie() {
 		super();
+		produits= new ArrayList<Produit>();
 	}
 
 	public Categorie(Long id, String label) {
 		super();
+		produits= new ArrayList<Produit>();
 		this.id = id;
 		this.label = label;
 	}
+
+	
+
+	
 
 	@Override
 	public String toString() {

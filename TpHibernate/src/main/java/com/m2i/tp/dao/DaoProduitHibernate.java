@@ -1,9 +1,11 @@
 package com.m2i.tp.dao;
 
+import java.util.Collection;
 import java.util.List;
 
 import javax.persistence.EntityManager;
 
+import com.m2i.tp.entity.Categorie;
 import com.m2i.tp.entity.Produit;
 
 public class DaoProduitHibernate implements DaoProduit {
@@ -61,25 +63,46 @@ public class DaoProduitHibernate implements DaoProduit {
 
 	@Override
 	public List<Produit> allProduits() {
-		return entityManager.createQuery("SELECT p FROM Produit p", Produit.class).getResultList();
+		return entityManager.createQuery("SELECT p FROM Produit p",	Produit.class)
+				.getResultList();
+	}
+	
+	public static void loadImmediatlyLazyCollection(Collection<?> c) {
+		//c.size(); //NB: appeler .size() sur une collection force un parcours interne
+		          //pour connaitre la taille
+		//ou bien 
+		for(Object obj : c) { } //boucle for (à vide) sur une collection
+		//pour demander à Jpa/Hibernate
+		//une remontée immédiate des éléments d'une sous collection
+		//avant qu'il ne soit trop tard (entityManager.close() ou ...)
+		// ceci permet d'éviter un LazyInitializationException
 	}
 
 	@Override
 	public List<Produit> produitsByCategorieId(Long idCategorie) {
-		/*
-		 * Categorie c = entityManager.find(Categorie.class, idCategorie);
-		 * entityManager.refresh(c); // rafraîchir les valeurs de l'objet categorie c //
-		 * en mémoire en fonction des valeurs en base. return c.getProduits();//
-		 * exploiter le lien @OneToMany
-		 */
-		String reqJpaQl = "SELECT p FROM Produit p WHERE p.categorie.id = :catId ";
-		return entityManager.createQuery(reqJpaQl, Produit.class).setParameter("catId", idCategorie).getResultList();
+	     /*
+		 Categorie c = entityManager.find(Categorie.class, idCategorie);
+		 entityManager.refresh(c); // rafraîchir les valeurs de l'objet categorie c 
+		 // en mémoire en fonction des valeurs en base. 
+		 List<Produit> listeProd =c.getProduits();//exploiter le lien @OneToMany
+		 loadImmediatlyLazyCollection(listeProd);
+		 System.out.println(c.toString());
+		 return listeProd;
+		*/
+		
+		return entityManager.createNamedQuery("Produit.produitsByCategorieId", 
+				                               Produit.class)
+				.setParameter("catId", idCategorie)
+				.getResultList();
+		
 	}
 
 	@Override
 	public List<Produit> produitsByCategorieName(String categorieName) {
-		String reqJpaQl = "SELECT p FROM Produit p WHERE p.categorie.label = ?1 ";
-		return entityManager.createQuery(reqJpaQl, Produit.class).setParameter(1, categorieName).getResultList();
+		return entityManager.createNamedQuery("Produit.produitsByCategorieName", 
+				                               Produit.class)
+				.setParameter(1, categorieName)
+				.getResultList();
 	}
 
 }
