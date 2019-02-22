@@ -39,4 +39,16 @@ public class DaoProduitSimu implements DaoProduit {
 		return new ArrayList<Produit>(mapProduits.values());
 	}
 
+	@Override
+	public List<Produit> produitsByCategorieId(Long idCategorie) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Produit> produitsByCategorieName(String categorieName) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

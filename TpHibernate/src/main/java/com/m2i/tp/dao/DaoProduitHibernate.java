@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 
+import com.m2i.tp.entity.Categorie;
 import com.m2i.tp.entity.Produit;
 
 public class DaoProduitHibernate implements DaoProduit {
@@ -62,6 +63,20 @@ public class DaoProduitHibernate implements DaoProduit {
 	@Override
 	public List<Produit> allProduits() {
 		return entityManager.createQuery("SELECT p FROM Produit p", Produit.class).getResultList();
+	}
+
+	@Override
+	public List<Produit> produitsByCategorieId(Long idCategorie) {
+		Categorie c = entityManager.find(Categorie.class, idCategorie);
+		entityManager.refresh(c); // rafraîchir les valeurs de l'objet categorie c
+									// en mémoire en fonction des valeurs en base.
+		return c.getProduits();// exploiter le lien @OneToMany
+	}
+
+	@Override
+	public List<Produit> produitsByCategorieName(String categorieName) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

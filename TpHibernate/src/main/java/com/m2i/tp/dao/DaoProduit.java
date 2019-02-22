@@ -16,4 +16,8 @@ public interface DaoProduit {
 	public Produit produitByNum(Long numProduit);
 
 	public List<Produit> allProduits();
+
+	public List<Produit> produitsByCategorieId(Long idCategorie);
+
+	public List<Produit> produitsByCategorieName(String categorieName);
 }

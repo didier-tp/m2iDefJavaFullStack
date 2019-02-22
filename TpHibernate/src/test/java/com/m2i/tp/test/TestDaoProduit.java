@@ -7,8 +7,11 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.m2i.tp.dao.DaoCategorie;
+import com.m2i.tp.dao.DaoCategorieHibernate;
 import com.m2i.tp.dao.DaoProduit;
 import com.m2i.tp.dao.DaoProduitHibernate;
+import com.m2i.tp.entity.Categorie;
 import com.m2i.tp.entity.Produit;
 
 import util.TestWithEntityManager;
@@ -17,6 +20,7 @@ public class TestDaoProduit extends TestWithEntityManager {
 
 	private Logger logger = LoggerFactory.getLogger(TestDaoProduit.class);
 	private DaoProduit dao; // à tester
+	private DaoCategorie daoCat; // pour aider à tester
 
 	/*
 	 * @Before public void initDao() { dao = new DaoProduitHibernate(); // ou new
@@ -28,8 +32,38 @@ public class TestDaoProduit extends TestWithEntityManager {
 		// NB: cette méthode est déclenchée par un @Before hérité
 		if (dao == null) {
 			dao = new DaoProduitHibernate();
+			daoCat = new DaoCategorieHibernate();
 		}
 		((DaoProduitHibernate) dao).setEntityManager(this.entityManager);
+		((DaoCategorieHibernate) daoCat).setEntityManager(this.entityManager);
+	}
+
+	@Test
+	public void testProduitsByCategorieId() {
+		Categorie c1 = new Categorie(null, "livre");
+		daoCat.createCategorie(c1);
+		Categorie c2 = new Categorie(null, "dvd");
+		daoCat.createCategorie(c2);
+		// ajouter 2 produits
+		Produit pA = new Produit(null, "produitA", 36.2);
+		pA.setCategorie(c1); // rattacher le produit pA à la categorie c1
+		dao.createProduit(pA);
+		Produit pB = new Produit(null, "produitB", 68.2);
+		pB.setCategorie(c1); // rattacher le produit pB à la categorie c1
+		dao.createProduit(pB);
+		Produit pC = new Produit(null, "produitC", 26.2);
+		pC.setCategorie(c2); // rattacher le produit pA à la categorie c1
+		dao.createProduit(pC);
+		// appeler produitsByCategorieId() , vérifier taille liste >= 2
+		logger.info("id c1=" + c1.getId());
+		List<Produit> listeProd = dao.produitsByCategorieId(c1.getId());
+		logger.info("listeProd=" + listeProd);
+		Assert.assertNotNull(listeProd);
+		Assert.assertTrue(listeProd.get(0).getCategorie().getId() == c1.getId());
+		Assert.assertTrue(listeProd.size() == 2);
+		// supprimer les 2 produits ajoutés
+		// dao.deleteProduit(pA.getNumero());
+		// dao.deleteProduit(pB.getNumero());
 	}
 
 	@Test
