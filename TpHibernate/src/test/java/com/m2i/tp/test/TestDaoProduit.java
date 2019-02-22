@@ -22,7 +22,7 @@ public class TestDaoProduit extends TestWithEntityManager {
 	private DaoProduit dao; // à tester
 	private DaoCategorie daoCat; // pour aider à tester
 
-	/*
+	/* 
 	 * @Before public void initDao() { dao = new DaoProduitHibernate(); // ou new
 	 * DaoProduitSimu(); // ou new ProduitDaoJdbc() ou ... }
 	 */
