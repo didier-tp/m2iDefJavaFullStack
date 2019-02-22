@@ -56,7 +56,8 @@ public class TestDaoProduit extends TestWithEntityManager {
 		dao.createProduit(pC);
 		// appeler produitsByCategorieId() , vérifier taille liste >= 2
 		logger.info("id c1=" + c1.getId());
-		List<Produit> listeProd = dao.produitsByCategorieId(c1.getId());
+		// List<Produit> listeProd = dao.produitsByCategorieId(c1.getId());
+		List<Produit> listeProd = dao.produitsByCategorieName("livre");
 		logger.info("listeProd=" + listeProd);
 		Assert.assertNotNull(listeProd);
 		Assert.assertTrue(listeProd.get(0).getCategorie().getId() == c1.getId());
