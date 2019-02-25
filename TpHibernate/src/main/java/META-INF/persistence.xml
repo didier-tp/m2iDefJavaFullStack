@@ -12,6 +12,7 @@ xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org
 	
 	<class>com.m2i.tp.entity.Produit</class>
 	<class>com.m2i.tp.entity.Categorie</class>
+		<class>com.m2i.tp.entity.Vetement</class>
 	
 	<properties>
 	  <!-- il est possible de placer directement ici les propriétés de

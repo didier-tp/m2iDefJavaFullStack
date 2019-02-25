@@ -13,6 +13,7 @@ import com.m2i.tp.dao.DaoProduit;
 import com.m2i.tp.dao.DaoProduitHibernate;
 import com.m2i.tp.entity.Categorie;
 import com.m2i.tp.entity.Produit;
+import com.m2i.tp.entity.Vetement;
 
 import util.TestWithEntityManager;
 
@@ -77,22 +78,26 @@ public class TestDaoProduit extends TestWithEntityManager {
 	public void testProduitsByCategorieId() {
 		Categorie c1 = new Categorie(null, "livre");daoCat.createCategorie(c1);
 		Categorie c2 = new Categorie(null, "dvd");	daoCat.createCategorie(c2);
+		Categorie c3 = new Categorie(null, "vetements");	daoCat.createCategorie(c3);
 		
 		Categorie cE = new Categorie(null, "enfants");daoCat.createCategorie(cE);
 		Categorie cA = new Categorie(null, "adultes");	daoCat.createCategorie(cA);
 		
 		
-		// ajouter 2 produits
+		// ajouter des produits
 		Produit pA = new Produit(null, "livre pour enfant A", 36.2);
 		pA.addCategorie(c1); pA.addCategorie(cE); dao.createProduit(pA);
+		
+		Vetement vA = new Vetement(null, "vetement pour enfant A", 26.2, 2 , "rouge");
+		vA.addCategorie(c1); vA.addCategorie(cE); dao.createProduit(vA);
 		
 		Produit pB = new Produit(null, "livre pour adulte B", 68.2);
 		pB.addCategorie(c1); pB.addCategorie(cA); dao.createProduit(pB);
 		Produit pC = new Produit(null, "dvd pour adulte C", 26.2);
 		pC.addCategorie(c2); pC.addCategorie(cA); dao.createProduit(pC);
 		// appeler produitsByCategorieId() , vérifier taille liste >= 2
-		logger.info("id c1=" + c1.getId());
-		List<Produit> listeProd = dao.produitsByCategorieId(c1.getId());
+		logger.info("id ce=" + cE.getId());
+		List<Produit> listeProd = dao.produitsByCategorieId(cE.getId());
 		//List<Produit> listeProd = dao.produitsByCategorieName("livre");
 		this.reinitEntityManager();
 		logger.info("listeProd=" + listeProd);
