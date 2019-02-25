@@ -28,7 +28,7 @@ import javax.persistence.NamedQuery;
 })
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "typeProduit",
-discriminatorType = DiscriminatorType.STRING)
+					discriminatorType = DiscriminatorType.STRING)
 @DiscriminatorValue("Produit")
 public class Produit {
 	@Id

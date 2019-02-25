@@ -22,8 +22,6 @@ public class Vetement extends Produit{
 		this.couleur = couleur;
 	}
 	
-	
-	
 	@Override
 	public String toString() {
 		return "Vetement [taille=" + taille + ", couleur=" + couleur + ", heritant de " + super.toString() + "]";

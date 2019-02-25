@@ -89,7 +89,7 @@ public class TestDaoProduit extends TestWithEntityManager {
 		pA.addCategorie(c1); pA.addCategorie(cE); dao.createProduit(pA);
 		
 		Vetement vA = new Vetement(null, "vetement pour enfant A", 26.2, 2 , "rouge");
-		vA.addCategorie(c1); vA.addCategorie(cE); dao.createProduit(vA);
+		vA.addCategorie(c3); vA.addCategorie(cE); dao.createProduit(vA);
 		
 		Produit pB = new Produit(null, "livre pour adulte B", 68.2);
 		pB.addCategorie(c1); pB.addCategorie(cA); dao.createProduit(pB);
