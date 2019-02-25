@@ -17,9 +17,9 @@ import javax.persistence.NamedQuery;
 @Entity
 @NamedQueries({
 	@NamedQuery(name="Produit.produitsByCategorieId",
-			    query="SELECT p FROM Produit p INNER JOIN p.categories c WHERE c.id = :catId "),
+	query="SELECT p FROM Produit p INNER JOIN p.categories c WHERE c.id = :catId "),
 	@NamedQuery(name="Produit.produitsByCategorieName",
-	            query="SELECT p FROM Produit p INNER JOIN p.categories c WHERE c.label = ?1 ")
+	query="SELECT p FROM Produit p INNER JOIN p.categories c WHERE c.label = ?1 ")
 })
 public class Produit {
 	@Id
@@ -30,7 +30,7 @@ public class Produit {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long numero;
 	
-	//méthode falculatative mais pratique (fiable et facile à appeler):
+	//méthode falcultative mais pratique (fiable et facile à appeler):
 		public void addCategorie(Categorie c) {
 			if(this.categories==null) {
 				this.categories=new ArrayList<Categorie>();
