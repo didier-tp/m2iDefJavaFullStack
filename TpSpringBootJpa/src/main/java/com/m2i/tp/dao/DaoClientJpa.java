@@ -10,11 +10,13 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.m2i.tp.entity.Client;
 
-@Repository
-@Transactional
+@Repository // composant spring de type DAO (Data Access Object)
+@Transactional // begin() et commit()/rollback() déclenchés automatiquement
 public class DaoClientJpa implements DaoClient {
 	
-	@PersistenceContext
+	@PersistenceContext //pour initialiser entityManager
+	                    //à partir de META-INF/persistence.xml 
+	                    //ou d'une config équivalente (ici spring)
 	private EntityManager entityManager;
 
 	@Override
@@ -24,7 +26,6 @@ public class DaoClientJpa implements DaoClient {
 
 	@Override
 	public List<Client> findAll() {
-		// TODO Auto-generated method stub
 		return entityManager
 				.createNamedQuery("Client.findAll",Client.class)
 				.getResultList();

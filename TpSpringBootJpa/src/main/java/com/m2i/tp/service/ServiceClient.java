@@ -14,6 +14,7 @@ import com.m2i.tp.entity.Client;
 
 public interface ServiceClient {
 		public Client rechercherClientParNumero(Long numero);
+		public Client rechercherEtMajClientParNumero(Long numero);
 		//public List<Compte> rechercherComptesDuClient(Long numClient);
 		//public void ajouterComptePourClient(Long numClient,Long numCompte);
 		public void saveOrUpdateClient(Client cpt);

@@ -26,7 +26,7 @@ import lombok.Setter;
 
 public class Client {
 	
-	@Id
+	@Id  
 	@Column(name="numClient")
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long numero;
