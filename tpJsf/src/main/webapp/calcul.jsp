@@ -9,11 +9,15 @@
 </head>
 <body>
 <f:view>
-
+<h:messages />
 <h:form>
-   a: <h:inputText value="#{calculMBean.}"/>
+   a: <h:inputText value="#{calculMBean.a}"/> <br/>
+   b: <h:inputText value="#{calculMBean.b}"/> <br/>
+  <h:commandButton value="+" action="#{calculMBean.doAdd}"/><br/>
+  <h:commandButton value="*" action="#{calculMBean.doMult}"/><br/>
 </h:form>
-
+<hr/>
+ res: <h:outputText value="#{calculMBean.res}"/> <br/>
 
 </f:view>
 </body>
