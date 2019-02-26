@@ -15,32 +15,9 @@
   
   <dependencies>
   
-         <dependency>
-			<groupId>org.projectlombok</groupId>
-			<artifactId>lombok</artifactId>
-			 <version>1.16.22</version>
-		</dependency>
-  
-		  <dependency>
-		    <groupId>javax.servlet</groupId>
-		    <artifactId>javax.servlet-api</artifactId>
-		    <version>3.1.0</version>
-		    <scope>provided</scope>
-		</dependency>
+         
 		
-		<dependency>
-		    <groupId>javax.servlet.jsp</groupId>
-		    <artifactId>jsp-api</artifactId>
-		    <version>2.2</version>
-		    <scope>provided</scope>
-		</dependency>
 		
-		<dependency>
-			<groupId>javax.servlet</groupId>
-			<artifactId>jstl</artifactId>
-			<version>1.2</version> <!-- old: 1.1.2 not for jsf2 -->
-			<scope>compile</scope>
-		</dependency>
   
   
 		  <dependency>
@@ -56,9 +33,27 @@
 			<version>${org.apache.myfaces.version}</version>
 			<scope>runtime</scope>
 		</dependency>
-  
+		
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>	 <version>1.16.22</version>
+		</dependency>
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>jstl</artifactId>
+			<version>1.2</version> 	<scope>compile</scope>
+		</dependency>
+		  <dependency>
+		    <groupId>javax.servlet</groupId>
+		    <artifactId>javax.servlet-api</artifactId>
+		    <version>3.1.0</version>   <scope>provided</scope>
+		</dependency>
+		<dependency>
+		    <groupId>javax.servlet.jsp</groupId>
+		    <artifactId>jsp-api</artifactId>
+		    <version>2.2</version>   <scope>provided</scope>
+		</dependency>
   </dependencies>
-  
   <build>
      <finalName>${project.artifactId}</finalName>
   </build>

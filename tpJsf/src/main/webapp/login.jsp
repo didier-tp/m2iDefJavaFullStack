@@ -5,19 +5,18 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>calcul</title>
+<title>login</title>
 </head>
 <body>
 <f:view>
 <h:messages />
 <h:form>
-   a: <h:inputText value="#{calculMBean.a}"/> <br/>
-   b: <h:inputText value="#{calculMBean.b}"/> <br/>
-  <h:commandButton value="+" action="#{calculMBean.doAdd}"/><br/>
-  <h:commandButton value="*" action="#{calculMBean.doMult}"/><br/>
+   username: <h:inputText value="#{loginMBean.username}"/> <br/>
+   password: <h:inputText value="#{loginMBean.password}"/> <br/>
+  <h:commandButton value="login" action="#{loginMBean.doLogin}"/><br/>
 </h:form>
 <hr/>
- res: <h:outputText value="#{calculMBean.res}"/> <br/>
+ <h:outputText value="#{loginMBean.message}"/> <br/>
 
 </f:view>
 </body>
