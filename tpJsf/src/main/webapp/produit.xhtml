@@ -22,8 +22,29 @@
 		 
 		</h:form>
 	</p:tab>
-	<p:tab title="onglet2">
-		bla bla
+	<p:tab title="produits">
+		<h:form>
+		    categorie: <h:selectOneListbox  value="#{produitMBean.numCategorie}">
+		        <f:selectItem itemValue="1" itemLabel="1-livres"/>
+		        <f:selectItem itemValue="2" itemLabel="2-DVD"/>
+		    </h:selectOneListbox>
+		</h:form>
+		<br/>
+		produits de la categorie sélectionnée:<br/>
+		<h:dataTable value="#{produitMBean.produits}" var="p" border="1">
+		    <h:column>
+		        <f:facet name="header"><f:verbatim>numero</f:verbatim></f:facet>
+		        <h:outputText value="#{p.numero}"/>
+		    </h:column>
+		    <h:column>
+		        <f:facet name="header"><f:verbatim>label</f:verbatim></f:facet>
+		        <h:outputText value="#{p.label}"/>
+		    </h:column>
+		    <h:column>
+		        <f:facet name="header"><f:verbatim>prix</f:verbatim></f:facet>
+		        <h:outputText value="#{p.prix}"/>
+		    </h:column>
+		</h:dataTable>
 	</p:tab>
   </p:tabView>	
 	</ui:define>
