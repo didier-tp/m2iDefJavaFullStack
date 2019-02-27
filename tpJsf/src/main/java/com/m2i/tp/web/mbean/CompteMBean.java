@@ -3,8 +3,10 @@ package com.m2i.tp.web.mbean;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
+import javax.faces.context.FacesContext;
 
 import com.m2i.tp.entity.Compte;
 import com.m2i.tp.service.ServiceCompte;
@@ -38,12 +40,17 @@ public class CompteMBean {
 	
 	public String effectuerVirement() {
 		String suite=null;
+		if(numCptDeb==numCptCred) {
+			FacesContext.getCurrentInstance().addMessage(null, 
+			new FacesMessage("virement impossible","numCptDeb==numCptCred"));
+		}else {
 		//déléguer le virement au serviceCompte:
 		serviceCompte.virement(montantVir, numCptDeb, numCptCred);
 		//réactualiser la liste des comptes
 		comptes = serviceCompte.comptesDuClient();
 		//naviguer vers comptes.xhtml pour afficher les nouvelles valeurs:
 		suite =  "comptes"; //.xhtml
+		}
 		return suite;
 	}
 	

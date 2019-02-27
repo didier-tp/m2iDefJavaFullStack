@@ -1,7 +1,7 @@
 package com.m2i.tp.web.mbean;
 
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
+import javax.faces.bean.SessionScoped;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -9,7 +9,10 @@ import lombok.Setter;
 
 @ManagedBean //nom logique par defaut = "loginMBean"
    //nom classe java avec première lettre basculée en minuscules
-@RequestScoped
+//@RequestScoped
+@SessionScoped
+//@ApplicationScoped pas du tout approprié ici
+//car le scope application est commun à tous les utilisateurs
 @Getter @Setter @NoArgsConstructor
 public class LoginMBean {
 	private String username="PowerUser"; //+get/set via lombok

@@ -10,9 +10,13 @@
     <ui:define name="title">virement</ui:define>
 	<ui:define name="header">virement</ui:define>
 	<ui:define name="content">
-	   <h:messages />
+	   <h:messages globalOnly="true" showDetail="true"/>
 		<h:form>
-		   montant: <h:inputText value="#{compteMBean.montantVir}"/> <br/>
+		   montant: <h:inputText id="montant" label="montant" value="#{compteMBean.montantVir}">
+		                <f:validateDoubleRange minimum="1" maximum="100000"/>
+		           </h:inputText>
+		           <h:message for="montant" /> 
+		           <br/>
 		   numCptDeb: <h:selectOneMenu value="#{compteMBean.numCptDeb}">
 		                  <f:selectItems value="#{compteMBean.comptes}"  var="c" 
 		                        itemValue="#{c.numero}" itemLabel="[#{c.numero}] #{c.label} : #{c.solde}" />
