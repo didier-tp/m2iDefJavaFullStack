@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
+import javax.faces.event.ValueChangeEvent;
 
 import com.m2i.tp.entity.Produit;
 import com.m2i.tp.service.ServiceProduit;
@@ -23,7 +24,10 @@ public class ProduitMBean {
 	private List<Produit> produits = new ArrayList<Produit>();
 	private Long numCategorie; //numéro categorie slectionnée
 	
-	//...
+	public void onChangementCategorie(ValueChangeEvent event) {
+		this.numCategorie=(Long)event.getNewValue();
+		produits = serviceProduit.produitsSelonCategorie(numCategorie);
+	}
 	
 	private Date date;
 	

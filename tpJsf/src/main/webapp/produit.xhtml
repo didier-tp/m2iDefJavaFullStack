@@ -12,7 +12,7 @@
     <ui:define name="title">produit</ui:define>
 	<ui:define name="header">produit</ui:define>
 	<ui:define name="content">
-	<p:tabView>
+	<p:tabView id="onglets">
 	  <p:tab title="choixDate">
 	   <h:messages />
 		<h:form>
@@ -22,16 +22,18 @@
 		 
 		</h:form>
 	</p:tab>
-	<p:tab title="produits">
+	<p:tab  title="produits">
 		<h:form>
-		    categorie: <h:selectOneListbox  value="#{produitMBean.numCategorie}">
+		    categorie: <h:selectOneListbox  value="#{produitMBean.numCategorie}"
+		         valueChangeListener="#{produitMBean.onChangementCategorie}">
+		        <f:ajax event="click" render="onglets:tableProduits"/> 
 		        <f:selectItem itemValue="1" itemLabel="1-livres"/>
 		        <f:selectItem itemValue="2" itemLabel="2-DVD"/>
 		    </h:selectOneListbox>
 		</h:form>
 		<br/>
 		produits de la categorie sélectionnée:<br/>
-		<h:dataTable value="#{produitMBean.produits}" var="p" border="1">
+		<h:dataTable id="tableProduits" value="#{produitMBean.produits}" var="p" border="1">
 		    <h:column>
 		        <f:facet name="header"><f:verbatim>numero</f:verbatim></f:facet>
 		        <h:outputText value="#{p.numero}"/>
