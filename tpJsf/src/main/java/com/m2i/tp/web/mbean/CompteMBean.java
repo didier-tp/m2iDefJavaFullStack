@@ -21,6 +21,11 @@ public class CompteMBean {
 	private List<Compte> comptes; //à afficher via un tableau
 	private ServiceCompte serviceCompte;
 	
+	//pour le virement:
+	private Double montantVir;
+	private Long numCptDeb;
+	private Long numCptCred;
+	
 	@PostConstruct
 	//@PostConstruct est une annotation standard de java/ee
 	//qui sert à déclencher une méthode d'initialisation 
@@ -30,5 +35,17 @@ public class CompteMBean {
 		 serviceCompte = ServiceCompte.getInstance(); //singleton
 		 comptes = serviceCompte.comptesDuClient();
 	}
+	
+	public String effectuerVirement() {
+		String suite=null;
+		//déléguer le virement au serviceCompte:
+		serviceCompte.virement(montantVir, numCptDeb, numCptCred);
+		//réactualiser la liste des comptes
+		comptes = serviceCompte.comptesDuClient();
+		//naviguer vers comptes.xhtml pour afficher les nouvelles valeurs:
+		suite =  "comptes"; //.xhtml
+		return suite;
+	}
+	
 
 }

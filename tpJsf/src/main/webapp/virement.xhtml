@@ -1,0 +1,29 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+<ui:composition template="/templates/common.xhtml">
+    <ui:define name="title">virement</ui:define>
+	<ui:define name="header">virement</ui:define>
+	<ui:define name="content">
+	   <h:messages />
+		<h:form>
+		   montant: <h:inputText value="#{compteMBean.montantVir}"/> <br/>
+		   numCptDeb: <h:selectOneMenu value="#{compteMBean.numCptDeb}">
+		                  <f:selectItems value="#{compteMBean.comptes}"  var="c" 
+		                        itemValue="#{c.numero}" itemLabel="[#{c.numero}] #{c.label} : #{c.solde}" />
+		             </h:selectOneMenu> <br/>
+		   numCptCred: <h:selectOneMenu value="#{compteMBean.numCptCred}">
+		                  <f:selectItems value="#{compteMBean.comptes}"  var="c" 
+		                        itemValue="#{c.numero}" itemLabel="[#{c.numero}] #{c.label} : #{c.solde}" />
+		             </h:selectOneMenu> <br/>
+		  <h:commandButton value="effectuer virement" action="#{compteMBean.effectuerVirement}"/><br/>
+		</h:form>
+	</ui:define>
+	
+</ui:composition>
+</html>
