@@ -27,7 +27,7 @@ public class CompteMBean {
 	// - après le new et le constructeur
 	// - après les injections de dépendances
 	public void init() {
-		 serviceCompte = new ServiceCompte(); //ou singleton
+		 serviceCompte = ServiceCompte.getInstance(); //singleton
 		 comptes = serviceCompte.comptesDuClient();
 	}
 

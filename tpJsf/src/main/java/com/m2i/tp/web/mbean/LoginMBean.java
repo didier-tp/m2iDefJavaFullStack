@@ -12,15 +12,15 @@ import lombok.Setter;
 @RequestScoped
 @Getter @Setter @NoArgsConstructor
 public class LoginMBean {
-	private String username; //+get/set via lombok
-	private String password; //+get/set via lombok
+	private String username="PowerUser"; //+get/set via lombok
+	private String password="pwdPowerUser"; //+get/set via lombok
 	private String message=""; //+get/set via lombok
 	
 	public String doLogin() {
 		String suite=null; //rester sur meme page (par defaut)
 		if(password.equals("pwd"+username)) {
 			message="";
-			suite="calcul"; //.jsp ou .xhtml
+			suite="comptes"; //.jsp ou .xhtml
 		}else {
 			message="wrong username or password";
 		}
