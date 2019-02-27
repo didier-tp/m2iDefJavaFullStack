@@ -43,6 +43,7 @@ public class CompteMBean {
 		if(numCptDeb==numCptCred) {
 			FacesContext.getCurrentInstance().addMessage(null, 
 			new FacesMessage("virement impossible","numCptDeb==numCptCred"));
+			//à afficher via <h:messages globalOnly="true" showDetail="true"/>
 		}else {
 		//déléguer le virement au serviceCompte:
 		serviceCompte.virement(montantVir, numCptDeb, numCptCred);
