@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+<ui:composition template="/templates/common.xhtml">
+    <ui:define name="title">index</ui:define>
+	<ui:define name="header">index / welcome</ui:define>
+	<ui:define name="content">
+    <!--  attention : url en .jsf (et pas .jsp)
+          pour que le contrôleur FaceServlet prédéfini de JSF
+          soit préalablement activé (voir config de WEB-INF/web.xml)
+          -->
+    <a href="login.jsf">login jsf , puis comptes</a> <br/>
+    <a href="calcul.jsf">calcul jsf </a> <br/>
+    ....
+</ui:define>
+</ui:composition>
+</html>
