@@ -15,11 +15,8 @@
 	<p:tabView id="onglets">
 	  <p:tab title="choixDate">
 	   <h:messages />
-		<h:form>
-		   date: <p:calendar value="#{produitMBean.date}"/> <br/>
-		  
+		<h:form>   date: <p:calendar value="#{produitMBean.date}"/> <br/>
 		  <h:commandButton value="save" action="#{produitMBean.doDo}"/><br/>
-		 
 		</h:form>
 	</p:tab>
 	<p:tab  title="produits">
