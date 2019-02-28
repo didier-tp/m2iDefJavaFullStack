@@ -20,6 +20,9 @@ public class ServeurSoapApp {
 			e.printStackTrace();
 		}
 		String wsUrl = "http://"+myHostName+":8080/serveurSoap/convertisseur";
+		//NB: l'adresse ip très spéciale 0.0.0.0 permet au serveur lancé
+		//d'accepter des requêtes provenant d'autres machines
+		String wsUrlTp = "http://0.0.0.0:8080/serveurSoap/convertisseur";
 		System.out.println("wsUrl soap=" + wsUrl);
 		System.out.println("wsUrl wsdl=" + wsUrl+"?wsdl");
 		//Endpoint.publish() de la machine virtuelle java (>=1.6)
@@ -29,7 +32,7 @@ public class ServeurSoapApp {
 		//et sera accessible au bout de l'url wsUrl suffixée par ?wsdl
 		//Une tâche de fond attend les requetes "soap" 
 		//et y répond automatiquement
-		Endpoint.publish(wsUrl, wsImpl);
+		Endpoint.publish(wsUrlTp, wsImpl);
 	}
 
 	public static void main(String[] args) {
