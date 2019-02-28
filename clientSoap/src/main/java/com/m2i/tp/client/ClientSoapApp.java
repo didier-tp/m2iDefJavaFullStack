@@ -9,9 +9,10 @@ import com.m2i.tp.service.ConvertisseurImplService;
 public class ClientSoapApp {
 
 	public static void main(String[] args) {
-		String sUrl = "http://172.28.10.81:8080/serveurSoap/convertisseur?wsdl";
+		//172.28.10.81 , 172.28.10.163
+		//String sUrl = "http://172.28.10.173:8080/serveurSoap/convertisseur?wsdl";
 		//String sUrl = "http://172.28.11.67:8080/serveurSoap/convertisseur?wsdl";
-		//String sUrl = "http://localhost:8080/serveurSoap/convertisseur?wsdl";
+		String sUrl = "http://localhost:8080/serveurSoap/convertisseur?wsdl";
 	  //String sUrl = "http://formation17:8080/serveurSoap/convertisseur?wsdl";
 	  URL wsdlURL = null;
 	  try {
