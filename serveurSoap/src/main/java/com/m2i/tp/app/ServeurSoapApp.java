@@ -14,8 +14,8 @@ public class ServeurSoapApp {
 		ConvertisseurImpl wsImpl = new ConvertisseurImpl();
 		String myHostName = "localhost";
 		try {
-			myHostName= InetAddress.getLocalHost().getHostName(); //nom ordi
-			//myHostName= InetAddress.getLocalHost().getHostAddress();//adresse ip
+			//myHostName= InetAddress.getLocalHost().getHostName(); //nom ordi
+			myHostName= InetAddress.getLocalHost().getHostAddress();//adresse ip
 		} catch (UnknownHostException e) {
 			e.printStackTrace();
 		}
