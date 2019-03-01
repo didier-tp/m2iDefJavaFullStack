@@ -2,12 +2,15 @@ package com.m2i.tp;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.web.servlet.ServletComponentScan;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 import org.springframework.context.ConfigurableApplicationContext;
 
 //NB: @SpringBootApplication est un équivalent
 // de @Configuration + @EnableAutoConfiguration + @ComponentScan/current package
 @SpringBootApplication
+@ServletComponentScan //@ServletComponentScan est ici exceptionnellement utile pour 
+//                      interpréter @WebServlet dans ViaServlet.class
 public class MySpringBootApplication extends SpringBootServletInitializer {
 	public static void main(String[] args) {
 		//SpringApplication.run(MySpringBootApplication.class, args);

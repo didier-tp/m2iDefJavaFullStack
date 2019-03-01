@@ -10,11 +10,15 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.boot.web.servlet.ServletComponentScan;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.m2i.tp.entity.Produit;
 
 
 @WebServlet(urlPatterns= "/servlet/ViaServlet")
+//NB: @WebServlet est interprété par springBoot si @ServletComponentScan 
+//est présent au dessus de MySpringBootApplication (main)
 public class ViaServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
