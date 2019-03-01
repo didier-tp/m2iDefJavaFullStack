@@ -76,6 +76,7 @@ public class ProduitRestCtrl {
 		//l'annotation @RequestBody permet de récupérer les données (json)
 		//véhiculées en mode POST dans la partie invisible "body" de la requête HTTP
 		//et effectue automatiquement la conversion "json--> java"
+		System.out.println("saveOrUpdateProduit , p = " + p);
 		if(p.getNumero()==null) {
 			  this.numMax++;
 			  p.setNumero(numMax);
