@@ -58,7 +58,7 @@ $(function() {
 				console.log(textStatus);
 			}
 		});
-		
+		// var objJs = JSON.parse(jsonString);
 	});
 	
 });
