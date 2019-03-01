@@ -1,11 +1,14 @@
 package com.m2i.tp.rest;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.m2i.tp.entity.Produit;
@@ -26,5 +29,23 @@ public class ProduitRestCtrl {
 	public Produit getProduitByNum(@PathVariable("numProd")  Long numero){
 		return mapProduits.get(numero);
 	}
+	
+	//URL = http://localhost:8080/serveurRestSpringMvc/rest/produit
+	//URL = http://localhost:8080/serveurRestSpringMvc/rest/produit?prixMaxi=40
+	@RequestMapping(value="" , method=RequestMethod.GET)
+	public List<Produit> getProduitsByCriteria(
+			@RequestParam(name="prixMaxi",required=false)Double prixMaxi){
+		List<Produit> listeProd = new ArrayList<>(mapProduits.values());
+		if(prixMaxi!=null) {
+			for(int i=listeProd.size()-1;i>=0;i--) {
+				Produit p = listeProd.get(i);
+				if(p.getPrix()>prixMaxi) {
+					listeProd.remove(p);
+				}
+			}
+		}
+		return listeProd;
+	}
+	
 
 }
