@@ -6,6 +6,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -30,12 +33,17 @@ public class ProduitRestCtrl {
 	}
 	//URL = http://localhost:8080/serveurRestSpringMvc/rest/produit/1
 	@RequestMapping(value="/{numProd}" , method=RequestMethod.GET)
-	public Produit getProduitByNum(@PathVariable("numProd")  Long numero){
-		return mapProduits.get(numero);
+	public ResponseEntity<Produit> getProduitByNum(@PathVariable("numProd")  Long numero){
+		Produit p = mapProduits.get(numero);
+		if(p!=null)
+			return new ResponseEntity<Produit>(p,HttpStatus.OK);
+		else 
+			return new ResponseEntity<Produit>(HttpStatus.NOT_FOUND);
 	}
 	
 	//URL = http://localhost:8080/serveurRestSpringMvc/rest/produit/1
-	@RequestMapping(value="/{numProd}" , method=RequestMethod.DELETE)
+	//@RequestMapping(value="/{numProd}" , method=RequestMethod.DELETE)
+	@DeleteMapping("")
 	public void deleteProduitByNum(@PathVariable("numProd")  Long numero){
 		mapProduits.remove(numero);
 	}
