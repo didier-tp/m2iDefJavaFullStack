@@ -34,6 +34,12 @@ public class ProduitRestCtrl {
 		return mapProduits.get(numero);
 	}
 	
+	//URL = http://localhost:8080/serveurRestSpringMvc/rest/produit/1
+	@RequestMapping(value="/{numProd}" , method=RequestMethod.DELETE)
+	public void deleteProduitByNum(@PathVariable("numProd")  Long numero){
+		mapProduits.remove(numero);
+	}
+	
 	//URL = http://localhost:8080/serveurRestSpringMvc/rest/produit
 	//URL = http://localhost:8080/serveurRestSpringMvc/rest/produit?prixMaxi=40
 	@RequestMapping(value="" , method=RequestMethod.GET)
