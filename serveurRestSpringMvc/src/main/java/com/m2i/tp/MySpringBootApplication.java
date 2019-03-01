@@ -17,7 +17,7 @@ public class MySpringBootApplication extends SpringBootServletInitializer {
 		app.setAdditionalProfiles("web.dev");
 		ConfigurableApplicationContext context = app.run(args);
 		
-		System.out.println("http://localhost:8080/serveurRestSpringMvc");
+		System.out.println("http://localhost:8080/serveurRestSpringMvc/index.html");
 		
 		//securité par défaut si la classe WebSecurityConfig n'existe pas dans l'application:
 		//System.out.println("default username=user et password précisé au démarrage");
