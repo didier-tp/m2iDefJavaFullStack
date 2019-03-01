@@ -1,16 +1,16 @@
 function rafraichirTableau() {
-	
+	$('#tableProd tbody > tr').remove();
 	$.ajax({
 		type: "GET",
 		url: "./rest/produit" ,
 		success: function (data,status,xhr) {
-			$('#tableProd tbody > tr').remove();
 			var tabProd = data;
+			console.log("tabProd=" + JSON.stringify(tabProd));
 			for(i in tabProd){
 				var prod = tabProd[i];
 				var htmlNewLine = "<tr><td>"+prod.numero+"</td><td>"+
 				    prod.label +"</td><td>"+ prod.prix + "</td></tr>";
-				$('#tableProd tbody').append(htmlNewLine);
+				$('#tableProd tbody:last-child').append(htmlNewLine);
 			}
 		},
 		error: function( jqXHR, textStatus, errorThrown ){
