@@ -7,6 +7,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -19,11 +20,13 @@ import com.m2i.tp.entity.Produit;
 public class ProduitRestCtrl {
 	
 	private Map<Long,Produit> mapProduits = new HashMap<>();
+	private Long numMax = null; //pour simuler auto_increment
 	
 	public ProduitRestCtrl() {
 		mapProduits.put(1L, new Produit(1L,"produit 1" , 12.0));
 		mapProduits.put(2L, new Produit(2L,"produit 2" , 56.0));
 		mapProduits.put(3L, new Produit(3L,"produit 3" , 28.0));
+		numMax=3L;
 	}
 	//URL = http://localhost:8080/serveurRestSpringMvc/rest/produit/1
 	@RequestMapping(value="/{numProd}" , method=RequestMethod.GET)
@@ -51,6 +54,20 @@ public class ProduitRestCtrl {
 			          .collect(Collectors.toList());
 		}
 		return listeProd;
+	}
+	
+	//URL = http://localhost:8080/serveurRestSpringMvc/rest/produit en POST
+	@RequestMapping(value="" , method=RequestMethod.POST)
+	public Produit saveOrUpdateProduit(@RequestBody Produit p) {
+		//l'annotation @RequestBody permet de récupérer les données (json)
+		//véhiculées en mode POST dans la partie invisible "body" de la requête HTTP
+		//et effectue automatiquement la conversion "json--> java"
+		if(p.getNumero()==null) {
+			  this.numMax++;
+			  p.setNumero(numMax);
+		}
+		mapProduits.put(p.getNumero(), p);
+		return p;
 	}
 	
 
