@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -37,12 +38,17 @@ public class ProduitRestCtrl {
 			@RequestParam(name="prixMaxi",required=false)Double prixMaxi){
 		List<Produit> listeProd = new ArrayList<>(mapProduits.values());
 		if(prixMaxi!=null) {
+			/*
 			for(int i=listeProd.size()-1;i>=0;i--) {
 				Produit p = listeProd.get(i);
 				if(p.getPrix()>prixMaxi) {
 					listeProd.remove(p);
 				}
-			}
+			}*/
+			listeProd = listeProd.stream()
+					  .map((p)->{ p.setLabel(p.getLabel().toUpperCase()); return p;})
+			          .filter( (p)-> p.getPrix()<prixMaxi )
+			          .collect(Collectors.toList());
 		}
 		return listeProd;
 	}
