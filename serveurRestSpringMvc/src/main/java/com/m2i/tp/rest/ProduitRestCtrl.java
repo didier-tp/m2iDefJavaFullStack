@@ -43,7 +43,7 @@ public class ProduitRestCtrl {
 	
 	//URL = http://localhost:8080/serveurRestSpringMvc/rest/produit/1
 	//@RequestMapping(value="/{numProd}" , method=RequestMethod.DELETE)
-	@DeleteMapping("")
+	@DeleteMapping("/{numProd}")
 	public void deleteProduitByNum(@PathVariable("numProd")  Long numero){
 		mapProduits.remove(numero);
 	}
