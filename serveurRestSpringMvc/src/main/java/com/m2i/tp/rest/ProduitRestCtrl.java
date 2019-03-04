@@ -1,6 +1,7 @@
 package com.m2i.tp.rest;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -10,12 +11,14 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.m2i.tp.dto.Promo;
 import com.m2i.tp.entity.Produit;
 
 @RestController //composant spring de type WS REST
@@ -31,6 +34,26 @@ public class ProduitRestCtrl {
 		mapProduits.put(3L, new Produit(3L,"produit 3" , 28.0));
 		numMax=3L;
 	}
+	
+	private void appliquerPromo(double tauxReductionPct) {
+		Collection<Produit> collectionProd = mapProduits.values();
+		for(Produit prod : collectionProd) {
+			prod.setPrix(prod.getPrix() * (1 - tauxReductionPct/100) );
+		}
+	}
+	//URL = http://localhost:8080/serveurRestSpringMvc/rest/produit/promo
+	//avec { "tauxReductionPct" : 5.0 } comme promo en json (POST)
+	@PostMapping("/promo")
+	public ResponseEntity<Promo> postPromo(@RequestBody Promo promo) {
+		try {
+			appliquerPromo(promo.getTauxReductionPct());
+			return new ResponseEntity<Promo>(promo,HttpStatus.OK);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return new ResponseEntity<Promo>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+	
 	//URL = http://localhost:8080/serveurRestSpringMvc/rest/produit/1
 	@RequestMapping(value="/{numProd}" , method=RequestMethod.GET)
 	public ResponseEntity<Produit> getProduitByNum(@PathVariable("numProd")  Long numero){

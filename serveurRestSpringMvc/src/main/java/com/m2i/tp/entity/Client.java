@@ -11,6 +11,7 @@ public class Client {
 	private Long id;
 	private String nom;
 	private String prenom;
+	
 	/*
 	@JsonIgnore //pour ne pas suivre le lien vers le sous objet adresse
 	            //lors des conversions java <--> json
