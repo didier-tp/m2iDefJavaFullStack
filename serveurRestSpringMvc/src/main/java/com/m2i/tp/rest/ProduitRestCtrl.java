@@ -9,6 +9,7 @@ import java.util.stream.Collectors;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -23,15 +24,16 @@ import com.m2i.tp.entity.Produit;
 
 @RestController //composant spring de type WS REST
 @RequestMapping(value="/rest/produit" , headers="Accept=application/json")
+@CrossOrigin(origins = "*")
 public class ProduitRestCtrl {
 	
 	private Map<Long,Produit> mapProduits = new HashMap<>();
 	private Long numMax = null; //pour simuler auto_increment
 	
 	public ProduitRestCtrl() {
-		mapProduits.put(1L, new Produit(1L,"produit 1" , 12.0));
-		mapProduits.put(2L, new Produit(2L,"produit 2" , 56.0));
-		mapProduits.put(3L, new Produit(3L,"produit 3" , 28.0));
+		mapProduits.put(1L, new Produit(1L,"produit 1 de didier" , 12.0));
+		mapProduits.put(2L, new Produit(2L,"produit 2 de didier" , 56.0));
+		mapProduits.put(3L, new Produit(3L,"produit 3 de didier" , 28.0));
 		numMax=3L;
 	}
 	
