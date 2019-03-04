@@ -26,8 +26,7 @@ public class ProduitWsIT {
 	   //serverName="172.28.10.81"; //poste didier/formateur
 	   baseURL="http://"+serverName+":8080/serveurRestSpringMvc/rest/produit";
 	   //baseURL="http://172.28.10.173:8080/serveurRestSpringMVC/rest/produit";//yacire
-	   //baseURL="http://172.28.10.163:8080/serveurRestSpringMVC/rest/produit";
-	   //baseURL="http://172.28.11.67:8080/serveurRestSpringMVC/rest/produit";
+	   //baseURL="http://172.28.10.81:8080/serveurRestSpringMvc/rest/produit";//ghassem
 	}
 	
 	@Test
