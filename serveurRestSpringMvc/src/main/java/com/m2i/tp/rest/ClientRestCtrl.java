@@ -56,7 +56,7 @@ public class ClientRestCtrl {
 	}
 	
 	//URL = http://localhost:8080/serveurRestSpringMvc/rest/client
-	//URL = http://localhost:8080/serveurRestSpringMvc/rest/client?nom=A*
+	//URL = http://localhost:8080/serveurRestSpringMvc/rest/client?nom=A.*
 	@RequestMapping(value="" , method=RequestMethod.GET)
 	public List<Client> getClientsByCriteria(
 			@RequestParam(name="nom",required=false) String debutNom){
