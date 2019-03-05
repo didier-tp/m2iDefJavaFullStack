@@ -24,12 +24,15 @@ public class MyCtrlApp {
 	public void sequence() {
 		//on délègue vers sous objets interchangeables 
 		//Design pattern STRATEGIE .
-		
+		/*
 		//calculateur = new CalculateurV1();
 		calculateur = new CalculateurV2();
 		//afficheur = new AfficheurModeTexte();
 		afficheur = new AfficheurGraphique();
-		
+		*/
+		MyFactory factory = new MyFactory();
+		calculateur = factory.createCalculateur();
+		afficheur = factory.createAfficheur();
 		//1 saisir x
 		double x;
 		x=afficheur.saisir("x:");
