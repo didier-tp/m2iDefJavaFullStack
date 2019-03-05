@@ -18,7 +18,9 @@ function rafraichirTableau() {
  					var cell0  = newRow.insertCell(0);
  					cell0.appendChild(document.createTextNode(prod.numero));
  					var cell1  = newRow.insertCell(1);
- 					cell1.appendChild(document.createTextNode(prod.prix));
+ 					cell1.appendChild(document.createTextNode(prod.label));
+ 					var cell2  = newRow.insertCell(2);
+ 					cell2.appendChild(document.createTextNode(prod.prix));
  				}
  		   });
            }
