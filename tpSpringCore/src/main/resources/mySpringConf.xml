@@ -20,7 +20,7 @@ http://www.springframework.org/schema/context/spring-context.xsd" >
 
 <bean id="afficheurV1" class="com.m2i.tp.essai.v1.AfficheurModeTexte" />
 
-<bean id="afficheurV2" class="com.m2i.tp.essai.v2.AfficheurModeGraphique" />
+<bean id="afficheurV2" class="com.m2i.tp.essai.v2.AfficheurGraphique" />
 
 <bean id="idCtrlSpring" class="com.m2i.tp.essai.MyCtrlSpring" >
 		  <property name="afficheur" ref="afficheurV1" />
