@@ -12,5 +12,21 @@ http://www.springframework.org/schema/tx
 http://www.springframework.org/schema/tx/spring-tx.xsd
 http://www.springframework.org/schema/context
 http://www.springframework.org/schema/context/spring-context.xsd" >
+<!-- entete copiée/collée de page 19 de  ecosysteme_spring5.pdf -->
+
+<bean id="calculateurV1" class="com.m2i.tp.essai.v1.CalculateurV1" />
+
+<bean id="calculateurV2" class="com.m2i.tp.essai.v2.CalculateurV2" />
+
+<bean id="afficheurV1" class="com.m2i.tp.essai.v1.AfficheurModeTexte" />
+
+<bean id="afficheurV2" class="com.m2i.tp.essai.v2.AfficheurModeGraphique" />
+
+<bean id="idCtrlSpring" class="com.m2i.tp.essai.MyCtrlSpring" >
+		  <property name="afficheur" ref="afficheurV1" />
+	<!--  <property name="afficheur" ref="afficheurV2" /> -->
+		  <property name="calculateur" ref="calculateurV1" />
+	<!--  <property name="calculateur" ref="calculateurV2" /> -->
+</bean>
 
 </beans>
