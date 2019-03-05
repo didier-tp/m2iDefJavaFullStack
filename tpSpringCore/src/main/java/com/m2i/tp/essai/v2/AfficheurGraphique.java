@@ -1,6 +1,8 @@
-package com.m2i.tp.essai;
+package com.m2i.tp.essai.v2;
 
 import javax.swing.JOptionPane;
+
+import com.m2i.tp.essai.Afficheur;
 
 public class AfficheurGraphique implements Afficheur {
 

@@ -1,6 +1,8 @@
-package com.m2i.tp.essai;
+package com.m2i.tp.essai.v1;
 
 import java.util.Scanner;
+
+import com.m2i.tp.essai.Afficheur;
 
 public class AfficheurModeTexte implements Afficheur {
 

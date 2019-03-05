@@ -1,4 +1,6 @@
-package com.m2i.tp.essai;
+package com.m2i.tp.essai.v1;
+
+import com.m2i.tp.essai.Calculateur;
 
 public class CalculateurV1 implements Calculateur {
 

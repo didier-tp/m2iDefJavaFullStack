@@ -19,8 +19,8 @@ public class MyFactory {
 	
 	public Calculateur createCalculateur() {
 		Calculateur c=null;
-		try {	//        c = new com.m2i.tp.essai.CalculateurV1();
-			//ou bien c = new com.m2i.tp.essai.CalculateurV2();
+		try {	//        c = new com.m2i.tp.essai.v1.CalculateurV1();
+			//ou bien c = new com.m2i.tp.essai.v2.CalculateurV2();
 			c=(Calculateur) Class.forName(calculateurClassName).newInstance();
 		} catch (Exception e) {			e.printStackTrace();		}
 		return c;
@@ -29,8 +29,8 @@ public class MyFactory {
 	public Afficheur createAfficheur() {
 		Afficheur a=null;
 		try {
-			//        c = new com.m2i.tp.essai.AfficheurModeTexte();
-			//ou bien c = new com.m2i.tp.essai.AfficheurGraphique();
+			//        c = new com.m2i.tp.essai.v1.AfficheurModeTexte();
+			//ou bien c = new com.m2i.tp.essai.v2.AfficheurGraphique();
 			a=(Afficheur) Class.forName(afficheurClassName).newInstance();
 		} catch (Exception e) {
 			e.printStackTrace();
