@@ -1,7 +1,10 @@
 package com.m2i.tp.essai.v2;
 
+import org.springframework.stereotype.Component;
+
 import com.m2i.tp.essai.Calculateur;
 
+@Component
 public class CalculateurV2 implements Calculateur {
 
 	@Override

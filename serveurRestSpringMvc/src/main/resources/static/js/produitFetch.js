@@ -1,3 +1,19 @@
+function myGenericJsGetFetch(url){
+	//...
+	fetch(url)
+    .then( (response) => {
+ 	   if (response.status !== 200) {
+ 		   console.log('Problem. Status Code: ' + response.status);
+ 		   return;
+ 		   }
+ 		   // Examine the text in the response :
+ 		   response.json().then(function(data) {
+ 			   resolve(data);
+ 		   }
+    })
+ 	.catch((err) =>{ console.log('Fetch Error :-S', err); });
+}
+
 function rafraichirTableau() {
 	document.querySelector('#tbodyOftableProd').innerHTML="";
 	
