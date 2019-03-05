@@ -22,6 +22,9 @@ http://www.springframework.org/schema/context/spring-context.xsd" >
           expression="com\.m2i\.tp\.essai\.v2\..*"/> -->
     <context:exclude-filter type="regex" 
           expression="com\.m2i\.tp\.essai\.v1\..*"/>
+    <!-- dans la syntaxe des regex , le . signifie caractère quelconque,
+         .* signifie 0 ou n caractères quelconques et \. signifie 
+         caractère . ordinaire -->
 </context:component-scan>
 
 </beans>
