@@ -1,24 +1,31 @@
 function rafraichirTableau() {
 	//document.querySelector('#tableProd tbody > tr').remove();
-	/*
-	$.ajax({
-		type: "GET",
-		url: "./rest/produit" ,
-		success: function (data,status,xhr) {
-			var tabProd = data;
-			console.log("tabProd=" + JSON.stringify(tabProd));
-			for(i in tabProd){
-				var prod = tabProd[i];
-				var htmlNewLine = "<tr><td>"+prod.numero+"</td><td>"+
-				    prod.label +"</td><td>"+ prod.prix + "</td></tr>";
-				$('#tableProd tbody:last-child').append(htmlNewLine);
-			}
-		},
-		error: function( jqXHR, textStatus, errorThrown ){
-			console.log(textStatus);
-		}
-	});
-	*/
+	
+	fetch("./rest/produit")
+    .then( (response) => {
+ 	   if (response.status !== 200) {
+ 		   console.log('Problem. Status Code: ' + response.status);
+ 		   return;
+ 		   }
+ 		   // Examine the text in the response :
+ 		   response.json().then(function(data) {
+ 			  var tabProd = data;
+ 				console.log("tabProd=" + JSON.stringify(tabProd));
+ 				for(i in tabProd){
+ 					var prod = tabProd[i];
+ 					var htmlNewLine = "<tr><td>"+prod.numero+"</td><td>"+
+ 					    prod.label +"</td><td>"+ prod.prix + "</td></tr>";
+ 					$('#tableProd tbody:last-child').append(htmlNewLine);
+ 				}
+ 		   });
+           }
+ 		)
+ 	.catch(function(err) {
+         console.log('Fetch Error :-S', err);
+      });
+	
+	
+	
 }
 
 window.addEventListener("load", function() { 
@@ -45,28 +52,33 @@ window.addEventListener("load", function() {
              });
 	});
 	
-	/*
+	
 	document.querySelector('#btnAddProd').addEventListener('click',function(){
 		var nouveauProduit = { numero: null, label: null , prix : null};
-		nouveauProduit.label = 	$('#label').val();
-		nouveauProduit.prix = Number($('#prix').val());	
-		$.ajax({
-			type: "POST",
-			url: "./rest/produit" ,
-			data : JSON.stringify(nouveauProduit),
-			dataType : "json",
-			contentType : "application/json",
-			success: function (data,status,xhr) {
-				console.log("nouveau produit ajoute="+JSON.stringify(data));
-				rafraichirTableau();
-			},
-			error: function( jqXHR, textStatus, errorThrown ){
-				console.log(textStatus);
-			}
-		});
-		// var objJs = JSON.parse(jsonString);
+		nouveauProduit.label = 	document.querySelector('#label').value;
+		nouveauProduit.prix = Number(document.querySelector('#prix').value);
+		fetch("./rest/produit", 
+			  { method: 'POST' ,
+			    headers: {
+			      'Accept': 'application/json',
+			      'Content-Type': 'application/json'
+			     },
+			    body : JSON.stringify(nouveauProduit)
+			  } )
+			 .then( (response) => {
+				 if (response.status == 200) {
+					 response.json().then(
+					   (data)=>{ 
+						  console.log("nouveau produit ajoute="+JSON.stringify(data));
+				                //rafraichirTableau();
+				               }		 
+					 );
+				 }
+			       } )
+			 .catch((e)=>{console.log("error:"+e)})
+		
 	});
 	
-	*/
+
 	
 });
