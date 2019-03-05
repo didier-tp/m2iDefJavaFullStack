@@ -1,5 +1,5 @@
 function rafraichirTableau() {
-	//document.querySelector('#tableProd tbody > tr').remove();
+	document.querySelector('#tableProd tbody').innerHTML="";
 	
 	fetch("./rest/produit")
     .then( (response) => {
@@ -11,11 +11,14 @@ function rafraichirTableau() {
  		   response.json().then(function(data) {
  			  var tabProd = data;
  				console.log("tabProd=" + JSON.stringify(tabProd));
+ 				var tableRef = document.getElementById('tableProd').getElementsByTagName('tbody')[0];
  				for(i in tabProd){
- 					var prod = tabProd[i];
- 					var htmlNewLine = "<tr><td>"+prod.numero+"</td><td>"+
- 					    prod.label +"</td><td>"+ prod.prix + "</td></tr>";
- 					$('#tableProd tbody:last-child').append(htmlNewLine);
+ 					var prod = tabProd[i];					
+ 					var newRow   = tableRef.insertRow(tableRef.rows.length);
+ 					var cell0  = newRow.insertCell(0);
+ 					cell0.appendChild(document.createTextNode(prod.numero));
+ 					var cell1  = newRow.insertCell(1);
+ 					cell1.appendChild(document.createTextNode(prod.prix));
  				}
  		   });
            }
@@ -70,7 +73,7 @@ window.addEventListener("load", function() {
 					 response.json().then(
 					   (data)=>{ 
 						  console.log("nouveau produit ajoute="+JSON.stringify(data));
-				                //rafraichirTableau();
+				                rafraichirTableau();
 				               }		 
 					 );
 				 }

@@ -9,27 +9,20 @@ public class MyFactory {
 	private String calculateurClassName=null;
 	
 	public MyFactory(){
-		Properties props = new Properties(); //java.util
-				
-		try {
-			props.load(Thread.currentThread()
+		Properties props = new Properties(); //java.util	
+		try {	props.load(Thread.currentThread()
 					.getContextClassLoader().getResourceAsStream(propertyFile));
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		} catch (Exception e) {			e.printStackTrace();		}
 		this.afficheurClassName = props.getProperty("afficheurClassName");
 		this.calculateurClassName = props.getProperty("calculateurClassName");
 	}
 	
 	public Calculateur createCalculateur() {
 		Calculateur c=null;
-		try {
-			//        c = new com.m2i.tp.essai.CalculateurV1();
+		try {	//        c = new com.m2i.tp.essai.CalculateurV1();
 			//ou bien c = new com.m2i.tp.essai.CalculateurV2();
 			c=(Calculateur) Class.forName(calculateurClassName).newInstance();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		} catch (Exception e) {			e.printStackTrace();		}
 		return c;
 	}
 	
