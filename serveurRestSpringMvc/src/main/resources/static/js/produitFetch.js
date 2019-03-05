@@ -1,5 +1,5 @@
 function rafraichirTableau() {
-	document.querySelector('#tableProd tbody').innerHTML="";
+	document.querySelector('#tbodyOftableProd').innerHTML="";
 	
 	fetch("./rest/produit")
     .then( (response) => {
@@ -11,7 +11,7 @@ function rafraichirTableau() {
  		   response.json().then(function(data) {
  			  var tabProd = data;
  				console.log("tabProd=" + JSON.stringify(tabProd));
- 				var tableRef = document.getElementById('tableProd').getElementsByTagName('tbody')[0];
+ 				var tableRef = document.getElementById('tbodyOftableProd');
  				for(i in tabProd){
  					var prod = tabProd[i];					
  					var newRow   = tableRef.insertRow(tableRef.rows.length);

@@ -1,5 +1,5 @@
 function rafraichirTableau() {
-	$('#tableProd tbody > tr').remove();
+	$('#tbodyOftableProd').html("");
 	$.ajax({
 		type: "GET",
 		url: "./rest/produit" ,
@@ -10,7 +10,7 @@ function rafraichirTableau() {
 				var prod = tabProd[i];
 				var htmlNewLine = "<tr><td>"+prod.numero+"</td><td>"+
 				    prod.label +"</td><td>"+ prod.prix + "</td></tr>";
-				$('#tableProd tbody:last-child').append(htmlNewLine);
+				$('#tbodyOftableProd').append(htmlNewLine);
 			}
 		},
 		error: function( jqXHR, textStatus, errorThrown ){
