@@ -10,7 +10,7 @@ function myGenericJsGetFetchData(url){
 	 		   // Examine the text in the response :
 	 		   response.json().then(function(data) {
 	 			  resolveWithJsData(data);
-	 		   }
+	 		   })
 	    })
 	 	.catch((err) =>{ console.log('Fetch Error :-S', err); 
 	 	                 reject(err); });
@@ -18,8 +18,15 @@ function myGenericJsGetFetchData(url){
 }
 
 function myGenericJsPostFetchData(url,jsObj){
+	//console.log("jsObj="+JSON.stringify(jsObj));
 	return new Promise((resolveWithJsData,reject)=>{
-		fetch(url)
+		fetch(url,{ method: 'POST' ,
+		    headers: {
+			      'Accept': 'application/json',
+			      'Content-Type': 'application/json'
+			     },
+			    body : JSON.stringify(jsObj)
+			  } )
 	    .then( (response) => {
 	 	   if (response.status !== 200) {
 	 		   var errString = 'Problem. Status Code: ' + response.status;
@@ -29,7 +36,7 @@ function myGenericJsPostFetchData(url,jsObj){
 	 		   // Examine the text in the response :
 	 		   response.json().then(function(data) {
 	 			  resolveWithJsData(data);
-	 		   }
+	 		   })
 	    })
 	 	.catch((err) =>{ console.log('Fetch Error :-S', err); 
 	 	                 reject(err); });
@@ -78,26 +85,13 @@ window.addEventListener("load", function() {
 		var nouveauProduit = { numero: null, label: null , prix : null};
 		nouveauProduit.label = 	document.querySelector('#label').value;
 		nouveauProduit.prix = Number(document.querySelector('#prix').value);
-		fetch("./rest/produit", 
-			  { method: 'POST' ,
-			    headers: {
-			      'Accept': 'application/json',
-			      'Content-Type': 'application/json'
-			     },
-			    body : JSON.stringify(nouveauProduit)
-			  } )
-			 .then( (response) => {
-				 if (response.status == 200) {
-					 response.json().then(
-					   (data)=>{ 
+		myGenericJsPostFetchData("./rest/produit",nouveauProduit)
+			 .then( (data)=>{ 
 						  console.log("nouveau produit ajoute="+JSON.stringify(data));
 				                rafraichirTableau();
-				               }		 
-					 );
-				 }
-			       } )
-			 .catch((e)=>{console.log("error:"+e)})
-		
+				           }		 
+					 )
+			 .catch((e)=>{console.log("error:"+e);})
 	});
 	
 
