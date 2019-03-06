@@ -30,12 +30,12 @@ public class MyCtrlSpring {
 	private Afficheur afficheur/*=null*/; //+set
 	
 	public MyCtrlSpring() {
-		logger.debug("dans constructeur , calculateur=" + calculateur);
+		logger.trace("dans constructeur , calculateur=" + calculateur);
 	}
 	
 	@PostConstruct
 	public void initAfterInjections() {
-		logger.debug("dans methode prefixee par @PostConstruct , calculateur="
+		logger.trace("dans methode prefixee par @PostConstruct , calculateur="
 	         + calculateur);
 	}
 	
