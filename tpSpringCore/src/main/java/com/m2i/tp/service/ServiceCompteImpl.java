@@ -34,8 +34,13 @@ public class ServiceCompteImpl implements ServiceCompte {
 
 	@Override
 	public void virement(double montant, long numCptDeb, long numCptCred) {
-		// TODO Auto-generated method stub
+		Compte cptDeb = daoCompte.findById(numCptDeb);
+		cptDeb.setSolde(cptDeb.getSolde() - montant);
+		daoCompte.save(cptDeb); //appel à .save() facultatif si persistant
 
+		Compte cptCred = daoCompte.findById(numCptCred);
+		cptCred.setSolde(cptCred.getSolde() + montant);
+		daoCompte.save(cptCred);//appel à .save() facultatif si persistant
 	}
 
 	@Override
