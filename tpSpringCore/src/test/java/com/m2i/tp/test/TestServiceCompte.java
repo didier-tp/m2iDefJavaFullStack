@@ -38,6 +38,28 @@ public class TestServiceCompte {
 	
 	@Test
 	public void testBonVirement() {
-		//...
+		Compte cA = new Compte(null,"compte A",50.0);
+		serviceCompte.sauvegarder(cA);
+		Compte cB = new Compte(null,"compte B",30.0);
+		serviceCompte.sauvegarder(cB);
+		//virement de 10 euros du compte cA vers le compte cB
+		serviceCompte.virement(10.0, cA.getNumero(), cB.getNumero());
+		//verifier virement
+		Compte cAapresVirement = serviceCompte.rechercherCompteParNumero(cA.getNumero());
+		Compte cBapresVirement = serviceCompte.rechercherCompteParNumero(cB.getNumero());
+		logger.debug("avant bon virement , cA=" + cA.getSolde() + " cB=" + cB.getSolde());
+		logger.debug("apres bon virement , cA=" + cAapresVirement.getSolde() 
+		                               + " cB=" + cBapresVirement.getSolde());
+		Assert.assertEquals(cA.getSolde()-10, cAapresVirement.getSolde(),0.01);
+		Assert.assertEquals(cB.getSolde()+10, cBapresVirement.getSolde(),0.01);
 	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }
