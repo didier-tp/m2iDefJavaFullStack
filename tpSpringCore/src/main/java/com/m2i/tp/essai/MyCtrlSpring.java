@@ -2,8 +2,9 @@ package com.m2i.tp.essai;
 
 import javax.annotation.PostConstruct;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import lombok.Setter;
@@ -16,6 +17,8 @@ import lombok.Setter;
 //@Scope("singleton") par defaut
 public class MyCtrlSpring {
 	
+	private Logger logger = LoggerFactory.getLogger(MyCtrlSpring.class);
+	
 	@Autowired //pour demander à spring d'initialiser la 
 	// référence calculateur pour que ça pointe vers un composant spring
 	// existant qui est compatible avec l'interface Calculateur
@@ -27,12 +30,12 @@ public class MyCtrlSpring {
 	private Afficheur afficheur/*=null*/; //+set
 	
 	public MyCtrlSpring() {
-		System.out.println("dans constructeur , calculateur=" + calculateur);
+		logger.debug("dans constructeur , calculateur=" + calculateur);
 	}
 	
 	@PostConstruct
 	public void initAfterInjections() {
-		System.out.println("dans methode prefixee par @PostConstruct , calculateur="
+		logger.debug("dans methode prefixee par @PostConstruct , calculateur="
 	         + calculateur);
 	}
 	
