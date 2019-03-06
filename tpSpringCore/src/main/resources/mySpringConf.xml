@@ -19,9 +19,9 @@ http://www.springframework.org/schema/context/spring-context.xsd" >
 <!-- <context:component-scan base-package="com.m2i.tp.essai.v2" /> -->
 <context:component-scan base-package="com.m2i.tp.essai" >
     <!-- <context:exclude-filter type="regex" 
-          expression="com\.m2i\.tp\.essai\.v2\..*"/> -->
+          expression="com\.m2i\.tp\.essai\.v1\..*"/> -->
     <context:exclude-filter type="regex" 
-          expression="com\.m2i\.tp\.essai\.v1\..*"/>
+          expression="com\.m2i\.tp\.essai\.v2\..*"/>
     <!-- dans la syntaxe des regex , le . signifie caractère quelconque,
          .* signifie 0 ou n caractères quelconques et \. signifie 
          caractère . ordinaire -->

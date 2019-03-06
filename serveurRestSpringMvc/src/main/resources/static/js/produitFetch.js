@@ -1,30 +1,46 @@
-function myGenericJsGetFetch(url){
-	//...
-	fetch(url)
-    .then( (response) => {
- 	   if (response.status !== 200) {
- 		   console.log('Problem. Status Code: ' + response.status);
- 		   return;
- 		   }
- 		   // Examine the text in the response :
- 		   response.json().then(function(data) {
- 			   resolve(data);
- 		   }
-    })
- 	.catch((err) =>{ console.log('Fetch Error :-S', err); });
+function myGenericJsGetFetchData(url){
+	return new Promise((resolveWithJsData,reject)=>{
+		fetch(url)
+	    .then( (response) => {
+	 	   if (response.status !== 200) {
+	 		   var errString = 'Problem. Status Code: ' + response.status;
+	 		   console.log(errString);  reject(errString);
+	 		   return;
+	 		   }
+	 		   // Examine the text in the response :
+	 		   response.json().then(function(data) {
+	 			  resolveWithJsData(data);
+	 		   }
+	    })
+	 	.catch((err) =>{ console.log('Fetch Error :-S', err); 
+	 	                 reject(err); });
+	});
+}
+
+function myGenericJsPostFetchData(url,jsObj){
+	return new Promise((resolveWithJsData,reject)=>{
+		fetch(url)
+	    .then( (response) => {
+	 	   if (response.status !== 200) {
+	 		   var errString = 'Problem. Status Code: ' + response.status;
+	 		   console.log(errString);  reject(errString);
+	 		   return;
+	 		   }
+	 		   // Examine the text in the response :
+	 		   response.json().then(function(data) {
+	 			  resolveWithJsData(data);
+	 		   }
+	    })
+	 	.catch((err) =>{ console.log('Fetch Error :-S', err); 
+	 	                 reject(err); });
+	});
 }
 
 function rafraichirTableau() {
 	document.querySelector('#tbodyOftableProd').innerHTML="";
 	
-	fetch("./rest/produit")
-    .then( (response) => {
- 	   if (response.status !== 200) {
- 		   console.log('Problem. Status Code: ' + response.status);
- 		   return;
- 		   }
- 		   // Examine the text in the response :
- 		   response.json().then(function(data) {
+	myGenericJsGetFetchData("./rest/produit")
+    .then( (data) => {
  			  var tabProd = data;
  				console.log("tabProd=" + JSON.stringify(tabProd));
  				var tableRef = document.getElementById('tbodyOftableProd');
@@ -38,15 +54,9 @@ function rafraichirTableau() {
  					var cell2  = newRow.insertCell(2);
  					cell2.appendChild(document.createTextNode(prod.prix));
  				}
- 		   });
-           }
- 		)
- 	.catch(function(err) {
-         console.log('Fetch Error :-S', err);
-      });
-	
-	
-	
+ 		   }) 	
+ 		   .catch((err) => { console.log(err); });
+
 }
 
 window.addEventListener("load", function() { 
@@ -54,23 +64,13 @@ window.addEventListener("load", function() {
 	document.querySelector('#btnRechercherParNum').addEventListener('click',function(){
 		var numProd = document.querySelector('#numProd').value;
 		console.log("./rest/produit/" + numProd)
-		fetch("./rest/produit/" + numProd)
-           .then( (response) => {
-        	   if (response.status !== 200) {
-        		   console.log('Problem. Status Code: ' + response.status);
-        		   return;
-        		   }
-        		   // Examine the text in the response :
-        		   response.json().then(function(data) {
+		myGenericJsGetFetchData("./rest/produit/" + numProd)
+           .then( (data) => {
         		        console.log(data);
         		        var jsonString = JSON.stringify(data);
         		        document.querySelector('#resProd').innerHTML = jsonString;
-        		   });
-                  }
-        		)
-        	.catch(function(err) {
-                console.log('Fetch Error :-S', err);
-             });
+        		   })
+        	.catch((err) => { console.log(err); });
 	});
 	
 	
