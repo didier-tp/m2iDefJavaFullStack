@@ -32,8 +32,16 @@ public class TestServiceCompte {
 		logger.info("cArelu="+cArelu);
 		Assert.assertEquals(50.0, cArelu.getSolde(),0.0001);
 		
-		//...
+		cArelu.setSolde(80.0);
+		serviceCompte.sauvegarder(cArelu);
 		
+		Compte cArelu2 = serviceCompte.rechercherCompteParNumero(numCptA);
+		logger.info("cArelu2 après modif="+cArelu2);
+		Assert.assertEquals(80.0, cArelu2.getSolde(),0.0001);
+		
+		serviceCompte.supprimerCompte(numCptA);
+		Compte cArelu3 = serviceCompte.rechercherCompteParNumero(numCptA);
+		Assert.assertNull(cArelu3); //le compte ne doit plus exister après suppression
 	}
 	
 	@Test

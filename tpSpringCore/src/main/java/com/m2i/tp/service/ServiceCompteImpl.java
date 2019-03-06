@@ -28,8 +28,8 @@ public class ServiceCompteImpl implements ServiceCompte {
 
 	@Override
 	public List<Compte> comptesDuClient() {
-		// TODO Auto-generated method stub
-		return null;
+		// version temporaire de tp (ameliorable)
+		return daoCompte.findAll();
 	}
 
 	@Override
@@ -45,8 +45,7 @@ public class ServiceCompteImpl implements ServiceCompte {
 
 	@Override
 	public void supprimerCompte(Long numero) {
-		// TODO Auto-generated method stub
-
+		daoCompte.deleteById(numero);
 	}
 
 	
