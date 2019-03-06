@@ -1,32 +1,33 @@
 package com.m2i.tp.test;
 
-import org.junit.After;
+import org.junit.AfterClass;
 import org.junit.Assert;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import com.m2i.tp.essai.MyCtrlSpring;
 
 public class TestSequenceMyCtrlSpring {
-	private ClassPathXmlApplicationContext springContext;
+	private static ClassPathXmlApplicationContext springContext;
 	private MyCtrlSpring myCtrlSpring; //à tester
 	
-	@Before //ou @BeforeClass
+	@BeforeClass
+	public static void initClass() {
+		springContext =	new ClassPathXmlApplicationContext("/mySpringConf.xml");
+	}
+	@Before
 	public void init() {
-		this.springContext =
-				new ClassPathXmlApplicationContext("/mySpringConf.xml");
 		myCtrlSpring= springContext.getBean(MyCtrlSpring.class);
 	}
-	@After
-	public void fin() {
+	@AfterClass
+	public static void fin() {
 		springContext.close();
 	}
 	
 	@Test
 	public void testSequence() {
-		Assert.assertNotNull(myCtrlSpring);
-		myCtrlSpring.sequence();
+		Assert.assertNotNull(myCtrlSpring);		myCtrlSpring.sequence();
 	}
-
 }
