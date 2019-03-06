@@ -47,6 +47,7 @@ public class TestServiceCompte {
 	@Test
 	public void testBonVirement() {
 		Compte cA = new Compte(null,"compte A",50.0);
+		//Compte cA = new Compte(null,"compte A",5.0); pour test avec solde insuffisant
 		serviceCompte.sauvegarder(cA);
 		Compte cB = new Compte(null,"compte B",30.0);
 		serviceCompte.sauvegarder(cB);
