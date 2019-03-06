@@ -54,6 +54,30 @@ public class TestServiceCompte {
 		Assert.assertEquals(cB.getSolde()+10, cBapresVirement.getSolde(),0.01);
 	}
 	
+	@Test
+	public void testMauvaisVirement() {
+		Compte cA = new Compte(null,"compte A",50.0);
+		serviceCompte.sauvegarder(cA);
+		Compte cB = new Compte(null,"compte B",30.0);
+		serviceCompte.sauvegarder(cB);
+		//virement de 10 euros du compte cA vers le compte 956215 qui n'existe pas
+		try {
+			serviceCompte.virement(10.0, cA.getNumero(), 956215);
+			Assert.fail("une exception aurait du remonter");
+		} catch (Exception e) {
+			//e.printStackTrace();
+			logger.error("echec virement (normal ici)" + e.getMessage());
+		}
+		//verifier virement
+		Compte cAapresVirement = serviceCompte.rechercherCompteParNumero(cA.getNumero());
+		Compte cBapresVirement = serviceCompte.rechercherCompteParNumero(cB.getNumero());
+		logger.debug("avant mauvais virement , cA=" + cA.getSolde() + " cB=" + cB.getSolde());
+		logger.debug("apres mauvais virement , cA=" + cAapresVirement.getSolde() 
+		                               + " cB=" + cBapresVirement.getSolde());
+		Assert.assertEquals(cA.getSolde(), cAapresVirement.getSolde(),0.01);
+		Assert.assertEquals(cB.getSolde(), cBapresVirement.getSolde(),0.01);
+	}
+	
 	
 	
 	
