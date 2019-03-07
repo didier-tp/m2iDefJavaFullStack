@@ -11,7 +11,7 @@ import com.m2i.tp.essai.MyCtrlSpring;
 //il faut spring-test dans pom.xml
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations= {"/mySpringConf.xml"})
-public class TestSequenceMyCtrlSpring {
+public class TSequenceMyCtrlSpring {
 
 	@Autowired
 	private MyCtrlSpring myCtrlSpring; //à tester

@@ -9,7 +9,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import com.m2i.tp.essai.MyCtrlSpring;
 
-public class TestSequenceMyCtrlSpringOldV1 {
+public class TSequenceMyCtrlSpringOldV1 {
 	private static ClassPathXmlApplicationContext springContext;
 	private MyCtrlSpring myCtrlSpring; //à tester
 	
