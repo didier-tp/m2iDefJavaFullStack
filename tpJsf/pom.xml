@@ -10,15 +10,26 @@
         <maven.compiler.target>1.8</maven.compiler.target>
         <maven.compiler.source>1.8</maven.compiler.source>
         <org.apache.myfaces.version>2.2.5</org.apache.myfaces.version>
+        <spring.version>5.1.5.RELEASE</spring.version>
         <!-- projetMavenSousEclipse / maven /update project -->
   </properties>
   
   <dependencies>
   
-         
+     <dependency>
+	    <groupId>org.springframework</groupId>
+	    <artifactId>spring-web</artifactId>
+	    <!-- spring-web pour relier spring à servlet/jsp ou jsf -->
+	    <version>${spring.version}</version>
+    </dependency>
 		
-		
-  
+	<dependency>
+	    <groupId>com.m2i.tp</groupId>
+	    <artifactId>tpSpringCore</artifactId>
+	    <!-- pour que tpSpringCore.jar soit intégrer dans WEB-INF/lib  
+	         de tpJsf.war construit par maven -->
+	    <version>0.0.1-SNAPSHOT</version>
+    </dependency>
   
 		  <dependency>
 			<groupId>org.apache.myfaces.core</groupId>
