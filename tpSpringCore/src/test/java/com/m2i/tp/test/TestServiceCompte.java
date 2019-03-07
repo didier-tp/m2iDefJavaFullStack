@@ -1,5 +1,7 @@
 package com.m2i.tp.test;
 
+import java.util.List;
+
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -21,6 +23,18 @@ public class TestServiceCompte {
 
 	@Autowired
 	private ServiceCompte serviceCompte; //à tester
+	
+	@Test
+	public void testComptesDuClient() {
+		Compte cA = new Compte(null,"compte AA",50.0);
+		serviceCompte.sauvegarder(cA);
+		Compte cB = new Compte(null,"compte BB",30.0);
+		serviceCompte.sauvegarder(cB);
+		
+		List<Compte> comptes = serviceCompte.comptesDuClient();
+		Assert.assertNotNull(comptes);
+		logger.info("comptes="+comptes);
+	}
 	
 	@Test
 	public void testCrud() {

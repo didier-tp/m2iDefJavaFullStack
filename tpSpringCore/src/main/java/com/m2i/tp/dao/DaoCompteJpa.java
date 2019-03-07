@@ -36,7 +36,7 @@ public class DaoCompteJpa implements DaoCompte {
 
 	@Override
 	public List<Compte> findAll() {
-		return entityManager.createQuery("SELECT c FROM Compte", Compte.class)
+		return entityManager.createQuery("SELECT c FROM Compte c", Compte.class)
 				.getResultList();
 	}
 
