@@ -5,6 +5,7 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
 
@@ -21,7 +22,16 @@ import lombok.Setter;
 public class CompteMBean {
 	
 	private List<Compte> comptes; //à afficher via un tableau
-	private ServiceCompte serviceCompte;
+	
+	//com.m2i.tp.service.ServiceCompte version simulée sans Spring , sans Mysql
+	//private com.m2i.tp.service.ServiceCompteSimu serviceCompte;
+	
+	//@ManagedProperty est à peu près l'équivalent jsf de @Autowired de spring
+	//ça configure une injection de dépendance vers le composant (içi "spring")
+	//dont l'id est serviceCompteImpl (nom classe Spring avec @Service
+	// avec premiere lettre en minuscule).
+	@ManagedProperty("#{serviceCompteImpl}")
+	private ServiceCompte serviceCompte ; //+get/set via lombok ou via eclipse
 	
 	//pour le virement:
 	private Double montantVir;
@@ -34,8 +44,18 @@ public class CompteMBean {
 	// - après le new et le constructeur
 	// - après les injections de dépendances
 	public void init() {
-		 serviceCompte = ServiceCompte.getInstance(); //singleton
-		 comptes = serviceCompte.comptesDuClient();
+		 //serviceCompte = com.m2i.tp.service.ServiceCompteSimu.getInstance(); //singleton
+		 
+		//NB: en mode développement , le sous projet tpSpringCore
+		// utilise jpa/hibernate en mode hbm2ddl.auto=create
+		// et la base de données mysql est réinitailisée à vide à chaque
+		// redémarrage de l'application
+		Compte cA = new Compte(null,"compte A",50.0);
+		serviceCompte.sauvegarder(cA);
+		Compte cB = new Compte(null,"compte B",30.0);
+		serviceCompte.sauvegarder(cB);
+		
+		comptes = serviceCompte.comptesDuClient();
 	}
 	
 	public String effectuerVirement() {

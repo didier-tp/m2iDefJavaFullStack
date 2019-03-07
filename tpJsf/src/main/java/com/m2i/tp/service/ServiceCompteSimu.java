@@ -8,22 +8,22 @@ import java.util.Map;
 import com.m2i.tp.entity.Compte;
 
 /* interface + classe ou classe direct */
-public class ServiceCompte {
+public class ServiceCompteSimu {
     //code interne quelquefois basé un ou plusieurs dao
 	//ici (en tp) simulation sans base de données
 	
 	//Singleton:
-	private static ServiceCompte uniqueInstance = null;
-	public static ServiceCompte getInstance() {
+	private static ServiceCompteSimu uniqueInstance = null;
+	public static ServiceCompteSimu getInstance() {
 		if(uniqueInstance==null) {
-			uniqueInstance=new ServiceCompte();
+			uniqueInstance=new ServiceCompteSimu();
 		}
 		return uniqueInstance;
 	}
 	
 	private Map<Long,Compte> mapComptes = new HashMap<>();
 	
-	public ServiceCompte() {
+	public ServiceCompteSimu() {
 		//constructeur par defaut (avec jeux de données):
 		mapComptes.put(1L,new Compte(1L,"compte 1", 110.0));
 		mapComptes.put(2L,new Compte(2L,"compte 2", 220.0));
