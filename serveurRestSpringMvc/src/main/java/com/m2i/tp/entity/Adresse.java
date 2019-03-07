@@ -1,11 +1,14 @@
 package com.m2i.tp.entity;
 
+import javax.persistence.Embeddable;
+
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
 @Getter @Setter @NoArgsConstructor  @ToString
+@Embeddable //ne comporte pas de @Id , à la place de @Entity
 public class Adresse {
 	private String numEtRue;
 	private String codePostal;

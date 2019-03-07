@@ -31,7 +31,7 @@ public class ProduitRestCtrl {
 	private Long numMax = null; //pour simuler auto_increment
 	
 	public ProduitRestCtrl() {
-		mapProduits.put(1L, new Produit(1L,"produit 1 de didier" , 12.0));
+		mapProduits.put(1L, new Produit(1L,"produit 1 de didier" , 29.0));
 		mapProduits.put(2L, new Produit(2L,"produit 2 de didier" , 56.0));
 		mapProduits.put(3L, new Produit(3L,"produit 3 de didier" , 28.0));
 		numMax=3L;
