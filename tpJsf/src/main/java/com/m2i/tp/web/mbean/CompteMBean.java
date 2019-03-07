@@ -50,10 +50,15 @@ public class CompteMBean {
 		// utilise jpa/hibernate en mode hbm2ddl.auto=create
 		// et la base de données mysql est réinitailisée à vide à chaque
 		// redémarrage de l'application
-		Compte cA = new Compte(null,"compte A",50.0);
-		serviceCompte.sauvegarder(cA);
-		Compte cB = new Compte(null,"compte B",30.0);
-		serviceCompte.sauvegarder(cB);
+		
+		comptes = serviceCompte.comptesDuClient(); 
+		//jeu de données pour tp (à ajouter qu'une fois):
+		if(comptes.isEmpty()) {
+			Compte cA = new Compte(null,"compte A",50.0);
+			serviceCompte.sauvegarder(cA);
+			Compte cB = new Compte(null,"compte B",30.0);
+			serviceCompte.sauvegarder(cB);
+		}
 		
 		comptes = serviceCompte.comptesDuClient();
 	}
