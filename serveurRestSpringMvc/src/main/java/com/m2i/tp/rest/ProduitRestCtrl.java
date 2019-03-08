@@ -33,13 +33,6 @@ public class ProduitRestCtrl {
 	public ProduitRestCtrl() {
 	}
 	
-	@PostConstruct
-	public void initJeuxDonneesEnDebutDeDeveloppement() {
-		//temporairement (en debut de phase de developpement)
-		serviceProduit.sauvegarderProduit(new Produit(1L,"produit 1 de didier" , 29.0));
-		serviceProduit.sauvegarderProduit(new Produit(2L,"produit 2 de didier" , 56.0));
-		serviceProduit.sauvegarderProduit( new Produit(3L,"produit 3 de didier" , 28.0));
-	}
 	
 	private void appliquerPromo(double tauxReductionPct) {
 		Collection<Produit> collectionProd = serviceProduit.tousProduits();

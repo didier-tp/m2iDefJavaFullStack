@@ -1,10 +1,6 @@
 package com.m2i.tp.rest;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
-
-import javax.annotation.PostConstruct;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -17,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.m2i.tp.entity.Adresse;
 import com.m2i.tp.entity.Client;
 import com.m2i.tp.service.ServiceClient;
 
@@ -31,19 +26,7 @@ public class ClientRestCtrl {
 	public ClientRestCtrl() {
 	}
 	
-	@PostConstruct
-	public void initJeuxDonneesEnDebutDeDeveloppement() {
-		//temporairement (en debut de phase de developpement)
-		Client c1 = new Client(1L,"Bon","jean" ,"jean.bon@labas.fr" , "010203040506");
-		c1.setAdresse(new Adresse("12, rue Elle" , "75001" , "Paris"));
-		serviceClient.sauvegarderClient(c1);
-		Client c2 = new Client(2L,"Therieur","alain" ,"alain.therieur@ici.fr" , "0605040201");
-		c2.setAdresse(new Adresse("14, impasse xy" , "80000" , "Amiens"));
-		serviceClient.sauvegarderClient(c2);
-		Client c3 = new Client(3L,"Condor","olie" ,"olie.condor@au-lit.fr" , "063030201");
-		c3.setAdresse(new Adresse("13, rue jeanne d'arc" , "76000" , "Rouen"));
-		serviceClient.sauvegarderClient(c3);
-	}
+	
 	//URL = http://localhost:8080/serveurRestSpringMvc/rest/client/1
 	@RequestMapping(value="/{idClient}" , method=RequestMethod.GET)
 	public ResponseEntity<Client> getProduitById(@PathVariable("idClient")  Long id){
