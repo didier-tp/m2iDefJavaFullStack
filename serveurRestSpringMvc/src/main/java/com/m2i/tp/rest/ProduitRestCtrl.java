@@ -1,11 +1,7 @@
 package com.m2i.tp.rest;
 
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -42,6 +38,7 @@ public class ProduitRestCtrl {
 	private void appliquerPromo(double tauxReductionPct) {
 		Collection<Produit> collectionProd = serviceProduit.tousProduits();
 		for(Produit prod : collectionProd) {
+			//prod est ici un objet à l'état détaché
 			prod.setPrix(prod.getPrix() * (1 - tauxReductionPct/100) );
 			serviceProduit.sauvegarderProduit(prod);
 		}
