@@ -3,6 +3,8 @@ package com.m2i.tp.rest;
 import java.util.Collection;
 import java.util.List;
 
+import javax.annotation.PostConstruct;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -29,6 +31,10 @@ public class ProduitRestCtrl {
 	private ServiceProduit serviceProduit;
 	
 	public ProduitRestCtrl() {
+	}
+	
+	@PostConstruct
+	public void initJeuxDonneesEnDebutDeDeveloppement() {
 		//temporairement (en debut de phase de developpement)
 		serviceProduit.sauvegarderProduit(new Produit(1L,"produit 1 de didier" , 29.0));
 		serviceProduit.sauvegarderProduit(new Produit(2L,"produit 2 de didier" , 56.0));
