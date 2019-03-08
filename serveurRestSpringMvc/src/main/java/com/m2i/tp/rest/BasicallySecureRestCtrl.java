@@ -1,6 +1,7 @@
 package com.m2i.tp.rest;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.http.HttpHeaders;
@@ -33,12 +34,33 @@ public class BasicallySecureRestCtrl {
 		@RequestMapping(value="/{id}" , method=RequestMethod.GET)
 		public ResponseEntity<Secret> getSecretById(@PathVariable("id")  Long id ,
 				                            @RequestHeader HttpHeaders httpHeaders ){
-			Secret s = mapSecrets.get(id);
-			if(s!=null)
-				return new ResponseEntity<Secret>(s,HttpStatus.OK);
-			else 
-				return new ResponseEntity<Secret>(HttpStatus.NOT_FOUND);
+			String token = extractBearerTokenFromHttpHeaders(httpHeaders);
+			if(BasicSecurity.verifyToken(token)){
+				Secret s = mapSecrets.get(id);
+				if(s!=null)
+					return new ResponseEntity<Secret>(s,HttpStatus.OK);
+				else 
+					return new ResponseEntity<Secret>(HttpStatus.NOT_FOUND);
+			}else {
+				return new ResponseEntity<Secret>(HttpStatus.UNAUTHORIZED);
+				//ou HttpStatus.FORBIDDEN;
+			}
 		}
 	
+		public static String extractBearerTokenFromHttpHeaders(HttpHeaders headers){
+			List<String> listOfAuthorization= headers.get(HttpHeaders.AUTHORIZATION);
+			if(listOfAuthorization==null || listOfAuthorization.size()==0){
+			return null;
+			}
+			String mainAuthorisation = listOfAuthorization.get(0);
+			System.out.println(mainAuthorisation);
+			if(mainAuthorisation.length()<8) {
+			return null;
+			}
+			if(mainAuthorisation.startsWith("Bearer")){
+			return mainAuthorisation.substring(7);
+			}
+			return null;
+		}
 	
 }

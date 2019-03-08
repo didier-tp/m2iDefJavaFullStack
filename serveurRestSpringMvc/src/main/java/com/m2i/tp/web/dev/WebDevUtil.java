@@ -1,5 +1,8 @@
 package com.m2i.tp.web.dev;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.annotation.PostConstruct;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,8 +11,10 @@ import org.springframework.stereotype.Component;
 
 import com.m2i.tp.entity.Adresse;
 import com.m2i.tp.entity.Client;
+import com.m2i.tp.entity.Commande;
 import com.m2i.tp.entity.Produit;
 import com.m2i.tp.service.ServiceClient;
+import com.m2i.tp.service.ServiceCommande;
 import com.m2i.tp.service.ServiceProduit;
 
 @Component
@@ -22,12 +27,14 @@ public class WebDevUtil {
 	@Autowired
 	private ServiceProduit serviceProduit;
 	
+	@Autowired
+	private ServiceCommande serviceCommande;
+	
 	@PostConstruct
 	public void initJeuxDonneesEnDebutDeDeveloppement() {
-		
-		serviceProduit.sauvegarderProduit(new Produit(1L,"produit 1 de didier" , 29.0));
-		serviceProduit.sauvegarderProduit(new Produit(2L,"produit 2 de didier" , 56.0));
-		serviceProduit.sauvegarderProduit( new Produit(3L,"produit 3 de didier" , 28.0));
+		Produit pA1 = new Produit(null,"pA1",51.0);	serviceProduit.sauvegarderProduit(pA1);
+		Produit pB1 = new Produit(null,"pB1",21.0);	serviceProduit.sauvegarderProduit(pB1);
+		Produit pC1 = new Produit(null,"pC1",501.0);serviceProduit.sauvegarderProduit(pC1);
 		
 		Client c1 = new Client(1L,"Bon","jean" ,"jean.bon@labas.fr" , "010203040506");
 		c1.setAdresse(new Adresse("12, rue Elle" , "75001" , "Paris"));
@@ -38,5 +45,9 @@ public class WebDevUtil {
 		Client c3 = new Client(3L,"Condor","olie" ,"olie.condor@au-lit.fr" , "063030201");
 		c3.setAdresse(new Adresse("13, rue jeanne d'arc" , "76000" , "Rouen"));
 		serviceClient.sauvegarderClient(c3);
+		
+		List<Produit> panierProduitsDeC1= new ArrayList<>();
+		panierProduitsDeC1.add(pA1); panierProduitsDeC1.add(pB1);
+		Commande cmde1 = serviceCommande.creerCommande(c1.getId(), panierProduitsDeC1);
 	}
 }
