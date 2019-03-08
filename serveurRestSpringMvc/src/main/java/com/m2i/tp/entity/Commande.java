@@ -10,6 +10,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQuery;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -18,6 +19,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 @Entity 
 @Getter @Setter @NoArgsConstructor
+@NamedQuery(name="Commande.findCommandeByClientId",
+query="SELECT c FROM Commande c WHERE c.client.id = ?1")
 public class Commande {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
