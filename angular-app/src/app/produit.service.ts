@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Produit } from 'src/app/produit';
 import { Observable , of } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -44,5 +44,25 @@ export class ProduitService {
                           })
                     );//end-of-pipe */
   }
+
+  private _headers = new HttpHeaders({'Content-Type': 'application/json'});
+
+  public postProduit$(produit: Produit) : Observable<Produit> {
+      let wsUrl = "./rest/produit";
+      return this.http.post<Produit>(wsUrl,
+                                     produit,
+                                     {headers:this._headers});
+  }
+
+
+
+
+
+
+
+
+
+
+
 
 }

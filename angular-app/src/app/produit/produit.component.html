@@ -8,3 +8,9 @@ prixMaxi : <input type="number" [(ngModel)]='prixMaxi' /> <br/>
       <td>{{p.numero}}</td> <td>{{p.label}}</td><td>{{p.prix}}</td>
     </tr>
 </table>
+
+<hr/>
+label :<input type="text" [(ngModel)]='nouveauProduit.label' /> <br/>
+prix :<input type="number" [(ngModel)]='nouveauProduit.prix' /> <br/>
+<input type="button" value="Ajouter produit"
+      (click)="onAjoutProd($event)" />

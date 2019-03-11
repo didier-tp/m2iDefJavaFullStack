@@ -10,10 +10,18 @@ import { ProduitService } from 'src/app/produit.service';
 export class ProduitComponent implements OnInit {
 
   private prixMaxi : number ;//= 50;
+  private nouveauProduit : Produit = new Produit();
 
   //private  tabProduit : Array<object>;
   private  tabProduit : Array<Produit>;
 
+  public onAjoutProd(event : any):void {
+    this.produitService.postProduit$(this.nouveauProduit)
+            .subscribe((prodAjoute) =>{
+                  console.log("produit ajoute cote serveur:" + JSON.stringify(prodAjoute));
+                  this.tabProduit.push(prodAjoute);
+                } )
+  }
 
   constructor(private produitService : ProduitService) {
     //NB1: au sens langage typescript (.ts) , si on passe
