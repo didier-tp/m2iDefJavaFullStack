@@ -24,7 +24,7 @@ import com.m2i.tp.service.ServiceProduit;
 
 @RestController //composant spring de type WS REST
 @RequestMapping(value="/rest/produit" , headers="Accept=application/json")
-@CrossOrigin(origins = "*")
+//@CrossOrigin(origins = "*")
 public class ProduitRestCtrl {
 	
 	@Autowired
