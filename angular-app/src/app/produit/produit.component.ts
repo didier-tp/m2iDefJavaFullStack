@@ -13,12 +13,13 @@ export class ProduitComponent implements OnInit {
   private nouveauProduit : Produit = new Produit();
 
   //private  tabProduit : Array<object>;
-  private  tabProduit : Array<Produit>;
+  private  tabProduit : Array<Produit> = [];
 
   public onAjoutProd(event : any):void {
     this.produitService.postProduit$(this.nouveauProduit)
             .subscribe((prodAjoute) =>{
-                  console.log("produit ajoute cote serveur:" + JSON.stringify(prodAjoute));
+                  console.log("produit ajoute cote serveur:"
+                              + JSON.stringify(prodAjoute));
                   this.tabProduit.push(prodAjoute);
                 } )
   }
