@@ -9,7 +9,7 @@ import { ProduitService } from 'src/app/produit.service';
 })
 export class ProduitComponent implements OnInit {
 
-  private prixMaxi : number ;//= 50;
+  private prixMaxi : number = 1000;
   private nouveauProduit : Produit = new Produit();
 
   //private  tabProduit : Array<object>;

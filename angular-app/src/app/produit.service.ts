@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Produit } from 'src/app/produit';
 import { Observable , of } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { map , flatMap ,toArray ,filter} from 'rxjs/operators';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Injectable({
@@ -18,13 +18,18 @@ export class ProduitService {
 
   public rechercherProduitSimu$(prixMaxi : number) : Observable<Produit[]> {
      let tabProduit = [
-       { numero : 1 , label : "produit 1" , prix : prixMaxi -1 } ,
-       { numero : 2 , label : "produit 2" , prix : prixMaxi }
+       { numero : 1 , label : "produit 1" , prix : 50 } ,
+       { numero : 2 , label : "produit 2" , prix : 30 } ,
+       { numero : 3 , label : "produit 3" , prix : 80 } ,
+       { numero : 4 , label : "produit 4" , prix : 500 }
      ]
      return of(tabProduit)
-          /* .pipe(
-             filter()
-           );*/
+           .pipe(
+           flatMap(pInTab=>pInTab),
+           map((p : Produit)=>{p.label = p.label.toUpperCase(); return p;}),
+           filter((p) => p.prix <= prixMaxi),
+           toArray()
+           );
    }
 
    public rechercherProduitHttp$(prixMaxi : number) : Observable<Produit[]> {
@@ -35,7 +40,12 @@ export class ProduitService {
     if(prixMaxi!=null){
       wsUrl+="?prixMaxi=" + prixMaxi;
       }
-    return this.http.get<Produit[]>(wsUrl );
+    return this.http.get<Produit[]>(wsUrl )
+                  .pipe(
+                    flatMap(pInTab=>pInTab),
+                    map((p : Produit)=>{p.label = p.label.toUpperCase(); return p;}),
+                    toArray()
+                  );
                   /*  .pipe(
                       map((tabP:Produit[])=>{
                            return tabP.map(
@@ -53,15 +63,6 @@ export class ProduitService {
                                      produit,
                                      {headers:this._headers});
   }
-
-
-
-
-
-
-
-
-
 
 
 
