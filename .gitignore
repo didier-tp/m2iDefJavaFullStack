@@ -9,6 +9,7 @@
 */*.war
 */*.ear
 
+*/node_modules
 */target
 */.project
 */.classpath
