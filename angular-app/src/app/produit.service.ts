@@ -40,12 +40,13 @@ export class ProduitService {
     if(prixMaxi!=null){
       wsUrl+="?prixMaxi=" + prixMaxi;
       }
-    return this.http.get<Produit[]>(wsUrl )
-                  .pipe(
+    //avec import { map , flatMap ,toArray ,filter} from 'rxjs/operators';
+    return this.http.get<Produit[]>(wsUrl );
+                /*  .pipe(
                     flatMap(pInTab=>pInTab),
                     map((p : Produit)=>{p.label = p.label.toUpperCase(); return p;}),
                     toArray()
-                  );
+                  );*/
                   /*  .pipe(
                       map((tabP:Produit[])=>{
                            return tabP.map(

@@ -21,7 +21,16 @@ export class ProduitComponent implements OnInit {
                   console.log("produit ajoute cote serveur:"
                               + JSON.stringify(prodAjoute));
                   this.tabProduit.push(prodAjoute);
-                } )
+                } ,
+                (err) => { this.affError(err);  }
+              )
+        //objetObservable.subscribe(callbackSuccess , callbackErreur)
+  }
+
+  private affError(err){
+    console.log("erreur detaillée:" + JSON.stringify(err));
+    console.log("message erreur technique:" + JSON.stringify(err));
+    alert("erreur de communication avec le serveur");
   }
 
   constructor(private produitService : ProduitService) {
@@ -37,10 +46,10 @@ export class ProduitComponent implements OnInit {
   public onRechercheProd(event : any):void {
     console.log("onRechercheProd , prixMaxi="+this.prixMaxi);
     this.produitService.rechercherProduit$(this.prixMaxi)
-         .subscribe((tabProd)=>{ this.tabProduit = tabProd; })
-    //...
+         .subscribe((tabProd)=>{ this.tabProduit = tabProd; } ,
+                    (err) => { this.affError(err);  }
+                  );
   }
-
 
 
   ngOnInit() {
