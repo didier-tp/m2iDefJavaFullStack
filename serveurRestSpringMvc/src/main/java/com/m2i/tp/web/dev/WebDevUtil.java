@@ -12,9 +12,11 @@ import org.springframework.stereotype.Component;
 import com.m2i.tp.entity.Adresse;
 import com.m2i.tp.entity.Client;
 import com.m2i.tp.entity.Commande;
+import com.m2i.tp.entity.Devise;
 import com.m2i.tp.entity.Produit;
 import com.m2i.tp.service.ServiceClient;
 import com.m2i.tp.service.ServiceCommande;
+import com.m2i.tp.service.ServiceDevise;
 import com.m2i.tp.service.ServiceProduit;
 
 @Component
@@ -30,8 +32,16 @@ public class WebDevUtil {
 	@Autowired
 	private ServiceCommande serviceCommande;
 	
+	@Autowired
+	private ServiceDevise serviceDevise;
+	
 	@PostConstruct
 	public void initJeuxDonneesEnDebutDeDeveloppement() {
+		Devise d1 = new Devise("EUR","euro",0.9); serviceDevise.creerDevise(d1);
+		Devise d2 = new Devise("USD","dollar",1.0); serviceDevise.creerDevise(d2);
+		Devise d3 = new Devise("GBP","livre",0.8); serviceDevise.creerDevise(d3);
+		Devise d4 = new Devise("JPY","yen",123.2); serviceDevise.creerDevise(d4);
+		
 		Produit pA1 = new Produit(null,"pA1",51.0);	serviceProduit.sauvegarderProduit(pA1);
 		Produit pB1 = new Produit(null,"pB1",21.0);	serviceProduit.sauvegarderProduit(pB1);
 		Produit pC1 = new Produit(null,"pC1",501.0);serviceProduit.sauvegarderProduit(pC1);
