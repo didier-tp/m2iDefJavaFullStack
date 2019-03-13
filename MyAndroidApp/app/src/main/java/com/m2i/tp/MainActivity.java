@@ -8,13 +8,35 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
+
+    private EditText etMontantEuro;
+    private Button btnEuroToFranc;
+    private TextView tvResultat;
+
+    private View.OnClickListener clickListenerBtnEuroToFranc = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+              String montantEuroSaisi = etMontantEuro.getText().toString();
+              double montantEuro = Double.parseDouble(montantEuroSaisi);
+              double montantFranc = montantEuro * 6.55957 ;
+              tvResultat.setText( String.valueOf(montantFranc));
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        this.btnEuroToFranc = findViewById(R.id.buttonConvert);
+        btnEuroToFranc.setOnClickListener(clickListenerBtnEuroToFranc);
+        this.etMontantEuro =  findViewById(R.id.txtMontantEuro);
+        this.tvResultat = findViewById(R.id.textViewResultat);
+
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
