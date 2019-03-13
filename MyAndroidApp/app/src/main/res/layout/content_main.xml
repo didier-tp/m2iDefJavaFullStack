@@ -74,7 +74,7 @@
         android:id="@+id/txtUrl"
         android:layout_width="360dp"
         android:layout_height="68dp"
-        android:text="http://....:8080"
+        android:text="http://172.28.11.67:8080"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintLeft_toLeftOf="parent"

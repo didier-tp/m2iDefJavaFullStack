@@ -13,6 +13,13 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
+
 public class MainActivity extends AppCompatActivity {
 
     private EditText etMontantEuro ;
@@ -36,9 +43,68 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public void onClick(View v) {
             String urlSaisie = etUrl.getText().toString();
-            tvResHttp.setText( "temp:" + urlSaisie);
+            String urlComplete = urlSaisie + "/serveurRestSpringMvc/rest/produit/1";
+            (new FetchTask()).execute(urlComplete);
         }
     };
+
+    private class FetchTask extends AsyncTask<String, Void, String> {
+
+        @Override
+        protected String doInBackground(String... strings) {
+            String strResHttp = null;
+            String stringUrl = strings[0];
+            HttpURLConnection conn=null;
+            InputStream inputStream = null;
+            try {
+                URL url = new URL(stringUrl);
+                conn = (HttpURLConnection) url.openConnection();
+                conn.connect();
+                int response = conn.getResponseCode();
+                if (response != 200) {
+                    return null;
+                }
+
+                inputStream = conn.getInputStream();
+                if (inputStream == null) {
+                    return null;
+                }
+
+                InputStreamReader inputStreamReader = new InputStreamReader(inputStream, "UTF-8");
+                BufferedReader reader = new BufferedReader(inputStreamReader);
+                StringBuffer buffer = new StringBuffer();
+                String line;
+                while ((line = reader.readLine()) != null) {
+                    buffer.append(line);
+                    buffer.append("\n");
+                }
+
+                return new String(buffer);
+            } catch (Exception e) {
+                return null;
+            } finally {
+                if (conn != null) {
+                    conn.disconnect();
+                }
+                if (inputStream != null) {
+                    try {
+                        inputStream.close();
+                    } catch (Exception ignored) {
+                    }
+                }
+            }
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            super.onPostExecute(s);
+            if (s == null) {
+                tvResHttp.setText("Erreur");
+            } else {
+                tvResHttp.setText(s);
+            }
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,12 +133,7 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    private class FetchTask extends AsyncTask<String, Void, String> {
-        @Override
-        protected String doInBackground(String... strings) {
-            return null;
-        }
-    }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
