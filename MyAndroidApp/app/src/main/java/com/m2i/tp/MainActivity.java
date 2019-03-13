@@ -44,64 +44,33 @@ public class MainActivity extends AppCompatActivity {
         public void onClick(View v) {
             String urlSaisie = etUrl.getText().toString();
             String urlComplete = urlSaisie + "/serveurRestSpringMvc/rest/produit/1";
-            (new FetchTask()).execute(urlComplete);
+            //L'appel http ne peut pas être effectuer dans le thread principal de l'activité
+            //exception de type "NetworkOnMainThreadException" sinon
+            //on doit passer par (new ...AsyncTask()).execute() pour que l'appel soit effectué
+            //par un Thread en tâche de fond
+
+            //NB:  <uses-permission android:name="android.permission.INTERNET" />
+            //     est nécessaire dans AndroidManifest.xml
+
+            (new MySpecificFetchTask()).execute(urlComplete);
         }
     };
 
-    private class FetchTask extends AsyncTask<String, Void, String> {
-
-        @Override
-        protected String doInBackground(String... strings) {
-            String strResHttp = null;
-            String stringUrl = strings[0];
-            HttpURLConnection conn=null;
-            InputStream inputStream = null;
-            try {
-                URL url = new URL(stringUrl);
-                conn = (HttpURLConnection) url.openConnection();
-                conn.connect();
-                int response = conn.getResponseCode();
-                if (response != 200) {
-                    return null;
-                }
-
-                inputStream = conn.getInputStream();
-                if (inputStream == null) {
-                    return null;
-                }
-
-                InputStreamReader inputStreamReader = new InputStreamReader(inputStream, "UTF-8");
-                BufferedReader reader = new BufferedReader(inputStreamReader);
-                StringBuffer buffer = new StringBuffer();
-                String line;
-                while ((line = reader.readLine()) != null) {
-                    buffer.append(line);
-                    buffer.append("\n");
-                }
-
-                return new String(buffer);
-            } catch (Exception e) {
-                return null;
-            } finally {
-                if (conn != null) {
-                    conn.disconnect();
-                }
-                if (inputStream != null) {
-                    try {
-                        inputStream.close();
-                    } catch (Exception ignored) {
-                    }
-                }
-            }
-        }
-
+    private class MySpecificFetchTask extends SimpleGetFetchTask{
         @Override
         protected void onPostExecute(String s) {
+            //NB: cette méthode sera appelée après
+            //la méthode doInBackground(...) de la classe héritée
+            //héritant elle même de AsyncTask<String, Void, String>
+
+            //la méthode doInBackground(...) va préalablement effectuer l'appel HTTP
+            //et la réponse sera récupérée via le paramètre d'entrée s
+            //de la méthode courante onPostExecute(String s)
             super.onPostExecute(s);
             if (s == null) {
                 tvResHttp.setText("Erreur");
             } else {
-                tvResHttp.setText(s);
+                tvResHttp.setText(s); //AFFICHER LE RESULTAT
             }
         }
     }
