@@ -1,6 +1,7 @@
 package com.m2i.tp;
 
 import android.os.Bundle;
+import android.os.AsyncTask;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -14,9 +15,12 @@ import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
 
-    private EditText etMontantEuro;
+    private EditText etMontantEuro ;
+    private EditText etUrl;
     private Button btnEuroToFranc;
+    private Button btnAppelHttp;
     private TextView tvResultat;
+    private TextView tvResHttp;
 
     private View.OnClickListener clickListenerBtnEuroToFranc = new View.OnClickListener() {
         @Override
@@ -25,6 +29,14 @@ public class MainActivity extends AppCompatActivity {
               double montantEuro = Double.parseDouble(montantEuroSaisi);
               double montantFranc = montantEuro * 6.55957 ;
               tvResultat.setText( String.valueOf(montantFranc));
+        }
+    };
+
+    private View.OnClickListener clickListenerBtnAppelHttp = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            String urlSaisie = etUrl.getText().toString();
+            tvResHttp.setText( "temp:" + urlSaisie);
         }
     };
 
@@ -37,6 +49,11 @@ public class MainActivity extends AppCompatActivity {
         this.etMontantEuro =  findViewById(R.id.txtMontantEuro);
         this.tvResultat = findViewById(R.id.textViewResultat);
 
+        this.btnAppelHttp = findViewById(R.id.buttonAppelHttp);
+        btnAppelHttp.setOnClickListener(clickListenerBtnAppelHttp);
+        this.etUrl =  findViewById(R.id.txtUrl);
+        this.tvResHttp = findViewById(R.id.textResHttp);
+
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -48,6 +65,13 @@ public class MainActivity extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
+    }
+
+    private class FetchTask extends AsyncTask<String, Void, String> {
+        @Override
+        protected String doInBackground(String... strings) {
+            return null;
+        }
     }
 
     @Override
