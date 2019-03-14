@@ -20,7 +20,7 @@ workbox.precaching.precache([
     revision: '1',
   },
   {
-    url: '/lib/workbox.3.6.1.js',
+    url: '/lib/.js',
     revision: '1',
   }
 ]);
