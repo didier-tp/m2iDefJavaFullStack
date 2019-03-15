@@ -1,0 +1,23 @@
+p { font-size: 1.6em ; }
+.c {
+	background-color:  yellow;
+}
+
+.s1 {
+  background-color: #A9A9A9; /* light grey */
+   font-size : 1.6em;
+}
+
+
+.s2 {
+  background-color: #42A948; /* green */
+  font-size : 1.6em;
+}
+
+.s3{
+  background-color:  #4442c9; /* blue */
+}
+
+.s4{
+  background-color:  yellow;
+}
