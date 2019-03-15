@@ -1,18 +1,134 @@
 <html>
 <head>
-   <title>index</title>
-   <link rel="stylesheet" href="./css/bootstrap.min.css">
-   <link rel="stylesheet" href="./css/styles.css">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /> <!-- for responsive bootstrap on mobile device -->
+<title>my pwa</title>
+ <link rel="stylesheet" type="text/css" href="css/styles.css" />
+ <link rel="icon" href="./img/pwa-icon_48_48.png" /> 
+ <link rel="manifest" href="manifest.json" />
+ <base href="/" />
 </head>
+
+ <script type="text/javascript" src="js/euroToFranc.js"></script>
+ <script type="text/javascript" src="js/pendu.js"></script>
+ <script type="text/javascript" src="js/news.js"></script>
+<script>
+
+function loadSubPart(url){
+  return new Promise((resolveWhenLoaded,reject)=>{
+	   var divSubPart = document.getElementById("idSubPart");
+	   myGenericJsGetFetchData(url)
+	   .then(
+		 (htmlData) => { divSubPart.innerHTML=htmlData ; 
+		 resolveWhenLoaded();
+		 }
+		 
+	   )
+	   .catch((e) => { console.log("error:" + e); reject(e);}
+	   );
+   });
+}
+
+function myGenericJsGetFetchData(url){
+	return new Promise((resolveWithJsData,reject)=>{
+		fetch(url)
+	    .then( (response) => {
+	 	   if (response.status !== 200) {
+	 		   var errString = 'Problem. Status Code: ' + response.status;
+	 		   console.log(errString);  reject(errString);
+	 		   return;
+	 		   }
+	 		   // Examine the text in the response :
+	 		   response.text().then(function(data) {
+	 			  resolveWithJsData(data);
+	 		   })
+	    })
+	 	.catch((err) =>{ console.log('Fetch Error :-S', err); 
+	 	                 reject(err); });
+	});
+}
+function initAfterLoad(){
+	var divSubPart = document.getElementById("idSubPart");
+	var btnP1 = document.getElementById("idP1");
+	btnP1.addEventListener('click', function(event) {
+		//divSubPart.innerHTML="p1";
+		loadSubPart("sp_news.html")
+		  .then(()=>{ startNews();});
+	});
+	var btnP2 = document.getElementById("idP2");
+	btnP2.addEventListener('click', function(event) {
+		//divSubPart.innerHTML="p2";
+		loadSubPart("sp_pendu.html")
+		  .then(()=>{ startPendu();});
+		
+	});
+	var btnP3 = document.getElementById("idP3");
+	btnP3.addEventListener('click', function(event) {
+		//divSubPart.innerHTML="p3";
+		loadSubPart("sp_euroToFranc.html")
+		  .then(()=>{ startEuroToFranc();});
+	});
+	var btnP4 = document.getElementById("idP4");
+	btnP4.addEventListener('click', function(event) {
+		divSubPart.innerHTML="graphique avec chart js dans future version";
+		//loadSubPart("sp_graph.html");
+	});
+}
+window.addEventListener('load', initAfterLoad);
+
+if ('serviceWorker' in navigator) {
+	window.addEventListener('load', function() {
+    navigator.serviceWorker.register('service-worker.js')
+	.then(() => navigator.serviceWorker.ready)
+	.then(function(registration) {
+      // Registration was successful
+      console.log('ServiceWorker registration successful with scope: ', registration.scope);
+    }, function(err) {
+      // registration failed :(
+      console.log('ServiceWorker registration failed: ', err);
+    });
+  });
+}
+
+</script>
+
 <body>
-    <div class="container c">
-   <h3>my progressive web app</h3>
-   <a href="./page_news.html">page_news</a> <br/>
-   <div class="row">
-		   <div class="col-sm-4 s2">col-sm-4</div>
-		   <div class="col-sm-8 s1">col-sm-8</div>
-		</div>	
-	</div>
+<h2>My PWA (Progressive Web App)</h2>
+<hr/>
+<button class="add-button">Add to home screen</button>
+<hr/>
+<input type="button" value="news" id="idP1" /> - 
+<input type="button" value="pendu" id="idP2" /> - 
+<input type="button" value="euroToFranc" id="idP3" /> -
+<input type="button" value="graphique" id="idP4" /> - 
+
+<div id="idSubPart">...</div>
+<script>
+let deferredPrompt;
+const addBtn = document.querySelector('.add-button');
+//addBtn.style.display = 'none';
+window.addEventListener('beforeinstallprompt', (e) => {
+// Prevent Chrome 67 and earlier from automatically showing the prompt
+e.preventDefault();
+// Stash the event so it can be triggered later.
+deferredPrompt = e;
+// Update UI to notify the user they can add to home screen
+addBtn.style.display = 'block';
+addBtn.addEventListener('click', (e) => {
+// hide our user interface that shows our A2HS button
+addBtn.style.display = 'none';
+// Show the prompt
+deferredPrompt.prompt();
+// Wait for the user to respond to the prompt
+deferredPrompt.userChoice.then((choiceResult) => {
+if (choiceResult.outcome === 'accepted') {
+console.log('User accepted the A2HS prompt');
+} else {
+console.log('User dismissed the A2HS prompt');
+}
+deferredPrompt = null;
+});
+});
+});
+</script>
+
 </body>
 </html>
