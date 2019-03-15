@@ -1,15 +1,19 @@
 <html>
 <head>
 <title>my pwa</title>
+<link rel="stylesheet" href="./css/bootstrap.min.css">
  <link rel="stylesheet" type="text/css" href="css/styles.css" />
  <link rel="icon" href="./img/pwa-icon_48_48.png" /> 
  <link rel="manifest" href="manifest.json" />
  <base href="/" />
+ <meta name="viewport" content="width=device-width, initial-scale=1.0" /> <!-- for responsive bootstrap on mobile device -->
 </head>
 
  <script type="text/javascript" src="js/euroToFranc.js"></script>
  <script type="text/javascript" src="js/pendu.js"></script>
  <script type="text/javascript" src="js/news.js"></script>
+ <script src="lib/chart.2.7.3.min.js"></script>
+ <script src="js/graph.js"></script>
 <script>
 
 function loadSubPart(url){
@@ -68,8 +72,9 @@ function initAfterLoad(){
 	});
 	var btnP4 = document.getElementById("idP4");
 	btnP4.addEventListener('click', function(event) {
-		divSubPart.innerHTML="graphique avec chart js dans future version";
-		//loadSubPart("sp_graph.html");
+		//divSubPart.innerHTML="graphique";
+		loadSubPart("sp_graph.html")
+		  .then(()=>{ startGraph();});
 	});
 }
 window.addEventListener('load', initAfterLoad);
@@ -91,9 +96,18 @@ if ('serviceWorker' in navigator) {
 </script>
 
 <body>
-<h2>My PWA (Progressive Web App)</h2>
-<hr/>
-<button class="add-button">Add to home screen</button>
+
+<div class="container">
+   
+   <div class="row">
+		   <div class="col-sm-8 s2">
+		      <h3>my progressive web app</h3>
+		   </div>
+		   <div class="col-sm-4 s1Bis">
+		      <button class="add-button">Add to home screen</button>
+			</div>
+  </div>	
+
 <hr/>
 <input type="button" value="news" id="idP1" /> - 
 <input type="button" value="pendu" id="idP2" /> - 
@@ -101,6 +115,8 @@ if ('serviceWorker' in navigator) {
 <input type="button" value="graphique" id="idP4" /> - 
 
 <div id="idSubPart">...</div>
+
+</div>
 <script>
 let deferredPrompt;
 const addBtn = document.querySelector('.add-button');

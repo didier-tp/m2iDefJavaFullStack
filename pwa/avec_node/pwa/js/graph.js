@@ -1,4 +1,7 @@
 
+function startGraph(){
+
+
 var btnDraw = document.getElementById("btnDraw");
 
 btnDraw.addEventListener("click",function(event){
@@ -68,6 +71,8 @@ btnDraw.addEventListener("click",function(event){
 });
 	
 });
+
+}
 /*
 var myChart = new Chart(ctx, {
     type: 'bar',
