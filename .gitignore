@@ -10,6 +10,7 @@
 */*.ear
 
 */node_modules
+**/node_modules
 */target
 */.project
 */.classpath
@@ -26,6 +27,8 @@
 */.idea/assetWizardSettings.xml
 */.DS_Store
 */build
+*/build/*
+**/build
 */captures
 */.externalNativeBuild
 

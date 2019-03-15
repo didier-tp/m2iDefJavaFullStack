@@ -27,13 +27,15 @@ res.send( [{ id : 1  , title : "news1" ,
 });
 // GET /news/1
 app.get('/news/:numero', function(req, res,next) {
-//req.params.numero
-res.send({ id : 1  , title : "news1" , text : "text of news1" });
+var num = req.params.numero;
+res.send(   { id : num  , 
+             title : "news-"+num , 
+			 text : "text of news at" + (new Date) });
 
 });
 
 app.use(require('express-static')('./')); //AFTER OTHER routes to serve static files !!!
 
 app.listen(8282 , function () {
-  console.log("simple express node server listening at 8282");
+  console.log("http://localhost:8282/index.html");
 });
