@@ -4,6 +4,16 @@
     Welcome to {{ title }}!
   </h1>
 </div>
-<app-conv></app-conv>
-
-<app-news></app-news>
+<ngb-accordion #acc="ngbAccordion" [closeOthers]="true"
+     activeIds="panelConv">
+<ngb-panel title="conversion" id="panelConv">
+    <ng-template ngbPanelContent>
+       <app-conv></app-conv>
+    </ng-template>
+</ngb-panel>
+<ngb-panel title="news" id="panelNews">
+    <ng-template ngbPanelContent>
+      <app-news></app-news>
+    </ng-template>
+</ngb-panel>
+</ngb-accordion>
