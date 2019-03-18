@@ -1,6 +1,9 @@
 montant euro:
 <input type="number" [(ngModel)]="montantEuro"  /> <br/>
 <input type="button" value="euro to franc"
+       class="btn btn-primary"
        (click)="onConversion($event)" /> <br/>
+<i class="fa fa-heart" aria-hidden="true" style="color: red;"></i> <br/>
+
 
 montant francs: {{montantFranc}}
