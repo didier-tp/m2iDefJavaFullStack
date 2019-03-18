@@ -1,3 +1,6 @@
-<p>
-  conv works!
-</p>
+montant euro:
+<input type="number" [(ngModel)]="montantEuro"  /> <br/>
+<input type="button" value="euro to franc"
+       (click)="onConversion($event)" /> <br/>
+
+montant francs: {{montantFranc}}
