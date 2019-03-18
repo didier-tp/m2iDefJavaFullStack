@@ -9,6 +9,7 @@ import { ConvComponent } from './conv/conv.component';
 
 import { FormsModule } from '@angular/forms';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import { NewsService } from 'src/app/news.service';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,7 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
     BrowserModule,FormsModule,NgbModule,
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
   ],
-  providers: [],
+  providers: [ NewsService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

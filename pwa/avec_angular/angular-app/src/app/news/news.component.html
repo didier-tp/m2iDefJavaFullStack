@@ -1,3 +1,4 @@
-<p>
-  news works!
-</p>
+numNews : <input [(ngModel)]="numNews"  /> <br/>
+<input type="button"  value=" get news"
+       (click)="onGetNews($event)"/> <br/>
+news : {{news | json}}

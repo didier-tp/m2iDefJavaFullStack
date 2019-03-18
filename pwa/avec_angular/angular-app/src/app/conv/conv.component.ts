@@ -7,8 +7,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ConvComponent implements OnInit {
 
-  private montantEuro : number ;
-  private montantFranc : number;
+  public montantEuro : number ;
+  public montantFranc : number;
 
   public onConversion(event:any){
     this.montantFranc = 6.5597 * Number(this.montantEuro);
