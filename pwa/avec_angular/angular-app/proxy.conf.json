@@ -1,0 +1,5 @@
+{   "/rest" : { "secure" : "false" ,
+               "target" : "http://localhost:8080/serveurRestSpringMvc" },
+    "/news" : { "secure" : "false" ,
+                  "target" : "http://localhost:8282" }           
+}
