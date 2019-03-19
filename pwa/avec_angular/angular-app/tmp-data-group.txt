@@ -1,0 +1,13 @@
+,
+"dataGroups": [
+{
+"name": "news-api",
+"urls": ["./news/*"],
+"cacheConfig": {
+"maxSize" : 10000,
+"maxAge" : "7d" ,
+"strategy" : "freshness" ,
+"timeout" : "5s"
+}
+}
+]

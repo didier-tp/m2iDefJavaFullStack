@@ -33,7 +33,10 @@ res.send(   { id : num  ,
 
 });
 
-app.use(require('express-static')('./')); //AFTER OTHER routes to serve static files !!!
+//AFTER OTHER routes to serve static files !!!
+//app.use(require('express-static')('./')); 
+app.use(require('express-static')
+('../angular-app/dist/angular-app')); 
 
 app.listen(8282 , function () {
   console.log("http://localhost:8282/index.html");
