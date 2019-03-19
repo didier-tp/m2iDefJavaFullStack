@@ -6,9 +6,14 @@
 </div>
 <ngb-accordion #acc="ngbAccordion" [closeOthers]="true"
      activeIds="panelConv">
-<ngb-panel title="conversion" id="panelConv">
+<ngb-panel title="euro to francs" id="panelConv">
     <ng-template ngbPanelContent>
        <app-conv></app-conv>
+    </ng-template>
+</ngb-panel>
+<ngb-panel title="conversion de devises" id="panelConv2">
+    <ng-template ngbPanelContent>
+       <app-conv2></app-conv2>
     </ng-template>
 </ngb-panel>
 <ngb-panel title="news" id="panelNews">

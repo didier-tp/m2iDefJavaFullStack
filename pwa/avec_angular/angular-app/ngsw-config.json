@@ -22,5 +22,17 @@
         ]
       }
     }
+  ] ,
+  "dataGroups": [
+    {
+    "name": "news-api",
+    "urls": ["http://localhost:8282/news/1"],
+      "cacheConfig": {
+      "maxSize" : 10000,
+      "maxAge" : "7d" ,
+      "strategy" : "freshness" ,
+      "timeout" : "5s"
+      }
+    }
   ]
 }

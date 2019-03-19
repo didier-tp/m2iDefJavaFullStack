@@ -2,7 +2,7 @@
 "dataGroups": [
 {
 "name": "news-api",
-"urls": ["./news/*"],
+"urls": ["http://localhost:8282/news/1"],
 "cacheConfig": {
 "maxSize" : 10000,
 "maxAge" : "7d" ,

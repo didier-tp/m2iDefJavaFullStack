@@ -1,0 +1,56 @@
+<form class="form-horizontal">
+   <div class="row form-group">
+       <label for="montantSource"
+         class="control-label col-sm-4">montant :</label>
+        <div class="col-sm-8">
+           <input type="number" name="montant"
+                  class="form-control"
+                  [(ngModel)]="montant"  />
+        </div>
+  </div>
+  <div class="row form-group">
+      <label for="montantSource"
+        class="control-label col-sm-4">monnaie source :</label>
+       <div class="col-sm-8">
+          <select name="monnaieSource"
+                 class="form-control"
+                 [(ngModel)]="monnaieSource"  >
+                 <option>EUR</option>
+                 <option>USD</option>
+                 <option>JPY</option>
+                 <option>GBP</option>
+          </select>
+       </div>
+ </div>
+ <div class="row form-group">
+     <label for="montantSource"
+       class="control-label col-sm-4">monnaie cible :</label>
+      <div class="col-sm-8">
+         <select type="text" name="monnaieCible"
+                class="form-control"
+                [(ngModel)]="monnaieCible"  >
+                <option>EUR</option>
+                <option>USD</option>
+                <option>JPY</option>
+                <option>GBP</option>
+         </select>
+      </div>
+</div>
+  <div class="row form-group">
+    <div class="offset-4 col-sm-8">
+      <input type="button" value="convertir"
+             class="btn btn-primary form-control"
+             (click)="onConversion($event)" />
+
+    </div>
+  </div>
+
+  <div class="row form-group">
+      <label for="montantConverti"
+        class="control-label col-sm-4">montant converti:</label>
+       <div class="col-sm-8">
+          {{montantConverti}}
+       </div>
+ </div>
+
+</form>

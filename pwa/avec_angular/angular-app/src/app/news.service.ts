@@ -14,7 +14,8 @@ export class NewsService {
           de ng serve (en mode developpement)
           ou bien réajustement d'URL équivalent en mode production
       */
-      let url_ws="./news/" + numNews;
+      //let url_ws="./news/" + numNews; //version nodejs
+      let  url_ws="./rest/news/" + numNews; //version java / springMvc
       return this.http.get(url_ws);
   }
 }

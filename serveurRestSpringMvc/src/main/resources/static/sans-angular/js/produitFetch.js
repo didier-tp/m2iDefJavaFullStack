@@ -46,7 +46,7 @@ function myGenericJsPostFetchData(url,jsObj){
 function rafraichirTableau() {
 	document.querySelector('#tbodyOftableProd').innerHTML="";
 	
-	myGenericJsGetFetchData("./rest/produit")
+	myGenericJsGetFetchData("../rest/produit")
     .then( (data) => {
  			  var tabProd = data;
  				console.log("tabProd=" + JSON.stringify(tabProd));
@@ -70,8 +70,8 @@ window.addEventListener("load", function() {
 	
 	document.querySelector('#btnRechercherParNum').addEventListener('click',function(){
 		var numProd = document.querySelector('#numProd').value;
-		console.log("./rest/produit/" + numProd)
-		myGenericJsGetFetchData("./rest/produit/" + numProd)
+		console.log("../rest/produit/" + numProd)
+		myGenericJsGetFetchData("../rest/produit/" + numProd)
            .then( (data) => {
         		        console.log(data);
         		        var jsonString = JSON.stringify(data);
@@ -85,7 +85,7 @@ window.addEventListener("load", function() {
 		var nouveauProduit = { numero: null, label: null , prix : null};
 		nouveauProduit.label = 	document.querySelector('#label').value;
 		nouveauProduit.prix = Number(document.querySelector('#prix').value);
-		myGenericJsPostFetchData("./rest/produit",nouveauProduit)
+		myGenericJsPostFetchData("../rest/produit",nouveauProduit)
 			 .then( (data)=>{ 
 						  console.log("nouveau produit ajoute="+JSON.stringify(data));
 				                rafraichirTableau();

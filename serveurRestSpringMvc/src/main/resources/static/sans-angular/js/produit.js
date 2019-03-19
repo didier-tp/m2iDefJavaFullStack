@@ -2,7 +2,7 @@ function rafraichirTableau() {
 	$('#tbodyOftableProd').html("");
 	$.ajax({
 		type: "GET",
-		url: "./rest/produit" ,
+		url: "../rest/produit" ,
 		success: function (data,status,xhr) {
 			var tabProd = data;
 			console.log("tabProd=" + JSON.stringify(tabProd));
@@ -27,7 +27,7 @@ $(function() {
 		console.log("./rest/produit/" + numProd)
 		$.ajax({
 			type: "GET",
-			url: "./rest/produit/" + numProd ,
+			url: "../rest/produit/" + numProd ,
 			success: function (data,status,xhr) {
 					var jsonString = JSON.stringify(data);
 		            $('#resProd').html(jsonString);
@@ -46,7 +46,7 @@ $(function() {
 		nouveauProduit.prix = Number($('#prix').val());	
 		$.ajax({
 			type: "POST",
-			url: "./rest/produit" ,
+			url: "../rest/produit" ,
 			data : JSON.stringify(nouveauProduit),
 			dataType : "json",
 			contentType : "application/json",
