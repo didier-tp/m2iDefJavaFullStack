@@ -53,8 +53,11 @@ public class CompteServiceImpl implements CompteService {
 
 	@Override
 	public List<Compte> rechercherComptesDuClient(long numClient) {
-		// sera codé avec @OneToMany
-		return null;
+		// avec version codée avec @OneToMany et @NamedQuery
+		//return compteDao.findByClientNum(numClient);
+		
+		// avec version codée automatiquement via convention de noms
+		return compteDao.findByClientNumero(numClient);
 	}
 
 }

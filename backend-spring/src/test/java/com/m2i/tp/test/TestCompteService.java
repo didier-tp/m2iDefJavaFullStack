@@ -1,5 +1,7 @@
 package com.m2i.tp.test;
 
+import java.util.List;
+
 import org.junit.Assert;
 import org.junit.Test;//JUnit 4
 import org.junit.runner.RunWith;
@@ -10,7 +12,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import com.m2i.tp.MySpringBootApplication;
+import com.m2i.tp.entity.Client;
 import com.m2i.tp.entity.Compte;
+import com.m2i.tp.service.ClientService;
 import com.m2i.tp.service.CompteService;
 
 //Test unitaire basé sur JUnit4 (et Spring)
@@ -23,6 +27,30 @@ public class TestCompteService {
 	@Autowired //injection de dépendance (Spring)  //@Inject() = equivalent EJB/CDI de @Autowired
 	private CompteService compteService; //chose à tester
 	
+	@Autowired 
+	private ClientService clientService; //service annexe
+	
+	
+	@Test
+	public void testComptesDuClient() {
+		Client cli1 = new Client();cli1.setUsername("user1");
+		cli1.setPassword("pwd1"); cli1.setRoles("user,admin");
+		clientService.sauvegarderClient(cli1);
+		
+		Compte c1 = new Compte(); c1.setLabel("compte c1");c1.setSolde(30.0);
+		c1.setClient(cli1);compteService.sauvegarderCompte(c1);
+		
+		Compte c2 = new Compte(); c2.setLabel("compte c2");c2.setSolde(20.0); 
+		c2.setClient(cli1);compteService.sauvegarderCompte(c2);
+		
+		Compte c3 = new Compte(); c3.setLabel("compte c3");c3.setSolde(40.0); 
+		compteService.sauvegarderCompte(c3);
+		
+		List<Compte> comptesDuClient1 = compteService.rechercherComptesDuClient(cli1.getNumero());
+		logger.info("comptesDuClient1:" + comptesDuClient1);
+		Assert.assertTrue(comptesDuClient1.size()==2);
+		
+	}
 	
 	@Test
 	public void testBonTransfert() {
@@ -76,6 +104,8 @@ public class TestCompteService {
 		logger.info("c1ReluDepuisBase="+c1ReluDepuisBase);//ou logger.debug()
 		
 	}
+	
+	
 	
 	
 	
