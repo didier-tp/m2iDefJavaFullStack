@@ -34,8 +34,8 @@ public class ClientDaoImpl implements ClientDao {
 
 	@Override
 	public List<Client> findAll() {
-		return entityManager.createQuery("SELECT c FROM Client c", Client.class)
-				            .getResultList();
+		//return entityManager.createQuery("SELECT c FROM Client c", Client.class).getResultList();
+		return entityManager.createNamedQuery("Client.findAll", Client.class).getResultList();
 	}
 
 	@Override
