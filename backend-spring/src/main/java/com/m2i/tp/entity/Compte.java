@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
-@Getter @Setter @NoArgsConstructor @ToString
+@Getter @Setter @NoArgsConstructor @ToString(exclude = { "client" })
 @Entity
 @NamedQuery(name="Compte.findByClientNum",query="SELECT cpt FROM Compte cpt WHERE cpt.client.numero = ?1")
 public class Compte {

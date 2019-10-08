@@ -2,12 +2,15 @@ package com.m2i.tp.service;
 
 import java.util.List;
 
+import org.hibernate.mapping.Collection;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.m2i.tp.dao.ClientDao;
 import com.m2i.tp.dao.CompteDao;
+import com.m2i.tp.entity.Client;
 import com.m2i.tp.entity.Compte;
 
 @Service
@@ -17,6 +20,9 @@ public class CompteServiceImpl implements CompteService {
 	
 	@Autowired
 	private CompteDao compteDao;
+	
+	@Autowired
+	private ClientDao clientDao;
 
 	@Override
 	public Compte rechercherCompteParNum(Long num) {
@@ -50,6 +56,10 @@ public class CompteServiceImpl implements CompteService {
 		//compteDao.save(cptCred); //automatique si contexte @Transactional
 		
 	}
+	
+	static void loadLazyCollection(List col) {
+		col.size(); //boucle for interne pour connaitre la taille
+	}
 
 	@Override
 	public List<Compte> rechercherComptesDuClient(long numClient) {
@@ -58,6 +68,14 @@ public class CompteServiceImpl implements CompteService {
 		
 		// avec version codée automatiquement via convention de noms
 		return compteDao.findByClientNumero(numClient);
+		
+		/*
+		Client client = clientDao.findById(numClient);
+		loadLazyCollection(client.getComptes());
+		return client.getComptes();
+		*/
+		//En fin de méthode @Transactional (de premier niveau) , la transaction est automatiquement fermée
+		//et le entityManager aussi
 	}
 
 }
