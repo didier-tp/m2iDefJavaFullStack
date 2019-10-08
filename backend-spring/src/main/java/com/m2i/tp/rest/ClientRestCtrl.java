@@ -21,16 +21,7 @@ public class ClientRestCtrl {
 	@Autowired
 	private ClientService clientService;
 	
-	@PostConstruct //appelée après constrcteur et après injections (paramétrées via autowired)
-	private void initJeuxDonneesEnModeDeveloppement() {
-		Client c1 = new Client(); c1.setUsername("user1");
-		c1.setPassword("pwd1"); c1.setRoles("user,admin");
-		clientService.sauvegarderClient(c1);
-		
-		Client c2 = new Client(); c2.setUsername("user2");
-		c2.setPassword("pwd2"); c2.setRoles("user,admin");
-		clientService.sauvegarderClient(c2);
-	}
+	
 	
 	//http://localhost:8080/backend-spring/rest/client/1_ou_2
 	@RequestMapping(value="/{numClient}" , method=RequestMethod.GET)
