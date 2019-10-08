@@ -25,7 +25,7 @@ public class Client {
 	
 	private String username;
 	
-	@Column(name="pwd")
+	@Column(name="pwd") 
 	private String password;
 	
 	private String roles;
