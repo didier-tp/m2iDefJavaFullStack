@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.m2i.tp.dao.ClientDao;
 import com.m2i.tp.entity.Client;
+import com.m2i.tp.exception.NotFoundException;
 
 @Service //héritant de @Component
 @Transactional
@@ -33,7 +34,12 @@ public class ClientServiceImpl implements ClientService {
 
 	@Override
 	public void supprimerClient(Long numero) {
-		clientDao.deleteById(numero);
+		try {
+			clientDao.deleteById(numero);
+		} catch (Exception e) {
+			//e.printStackTrace();
+			throw new NotFoundException("echec suppression" , e);
+		}
 	}
 
 	@Override
