@@ -53,4 +53,11 @@ public class ClientDaoImpl implements ClientDao {
         entityManager.remove(cli);
 	}
 
+	@Override
+	public List<Client> findByRolesContaining(String role) {
+		return entityManager.createNamedQuery("Client.findByRolesContaining",Client.class)
+				            .setParameter(1, "%"+role+"%")
+				            .getResultList();
+	}
+
 }

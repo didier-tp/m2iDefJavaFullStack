@@ -36,4 +36,9 @@ public class ClientServiceImpl implements ClientService {
 		clientDao.deleteById(numero);
 	}
 
+	@Override
+	public List<Client> rechercherClientsParRole(String role) {
+		return clientDao.findByRolesContaining(role);
+	}
+
 }

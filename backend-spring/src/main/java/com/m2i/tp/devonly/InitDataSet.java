@@ -24,8 +24,12 @@ public class InitDataSet {
 		clientService.sauvegarderClient(c1);
 		
 		Client c2 = new Client(); c2.setUsername("user2");
-		c2.setPassword("pwd2"); c2.setRoles("user,admin");
+		c2.setPassword("pwd2"); c2.setRoles("user");
 		clientService.sauvegarderClient(c2);
+		
+		Client c3 = new Client(); c3.setUsername("user3");
+		c2.setPassword("pwd3"); c3.setRoles("user");
+		clientService.sauvegarderClient(c3);
 	}
 	
 }

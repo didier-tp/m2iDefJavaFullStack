@@ -11,7 +11,8 @@ public interface ClientDao {
 	//public Optional<Client> findById(Long num);
 	public  Client  save(Client client);//au sens save or update
 	                                    //en retour: avec clef primaire quelquefois auto_incr
-	void deleteById(Long num);
+	public void deleteById(Long num);
+	public List<Client> findByRolesContaining(String role);
 	//...
 
 }

@@ -8,6 +8,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 
@@ -22,12 +23,16 @@ import lombok.ToString;
 
 @Entity
 //@Table(name="Client")
-@NamedQuery(name="Client.findAll",query="SELECT c FROM Client c")
+@NamedQueries({
+	@NamedQuery(name="Client.findAll",query="SELECT c FROM Client c"),
+	@NamedQuery(name="Client.findByRolesContaining",
+	           query="SELECT c FROM Client c WHERE c.roles like ?1 ")
+})
 public class Client {
 	
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "client") //relation inverse
 	@JsonIgnore //@JsonIgnore de la technologie jackson (utilisée en interne par Spring-MVC)
-	            //demande à ignorer la partie ".comptes" lorsque l'obbjet java clinet est transformé en JSON
+	            //demande à ignorer la partie ".comptes" lorsque l'obbjet java client est transformé en JSON
 	private List<Compte> comptes;
 	
 	@Id

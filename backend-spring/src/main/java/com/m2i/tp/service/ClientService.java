@@ -8,6 +8,7 @@ public interface ClientService {
 	
 	Client rechercherClientParNum(Long num);
 	List<Client> rechercherTousClients();
+	List<Client> rechercherClientsParRole(String role);
 	Client sauvegarderClient(Client c);
 	void supprimerClient(Long numero);
 	//...
