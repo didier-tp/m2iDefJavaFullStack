@@ -3,8 +3,12 @@ package com.m2i.tp.rest;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -17,6 +21,22 @@ import com.m2i.tp.service.ClientService;
 @RestController //hérite de @Component
 @RequestMapping(value="/rest/client" , headers="Accept=application/json")
 public class ClientRestCtrl {
+	
+	public static String extractBearerTokenFromHttpHeaders(HttpHeaders headers){
+		List<String> listOfAuthorization= headers.get(HttpHeaders.AUTHORIZATION);
+		if(listOfAuthorization==null || listOfAuthorization.size()==0){
+		return null;
+		}
+		String mainAuthorisation = listOfAuthorization.get(0);
+		System.out.println(mainAuthorisation);
+		if(mainAuthorisation.length()<8) {
+		return null;
+		}
+		if(mainAuthorisation.startsWith("Bearer")){
+		return mainAuthorisation.substring(7);
+		}
+		return null;
+	}
 	
 	
 	@Autowired
@@ -74,19 +94,25 @@ public class ClientRestCtrl {
 		return authResponse;	
 	}
 	
-	/*
+	
 	//http://localhost:8080/backend-spring/rest/client/1_ou_2 DELETE
 	@RequestMapping(value="/{numClient}" , method=RequestMethod.DELETE)
-	public ResponseEntity<String> deleteClientByNum(@PathVariable("numClient")Long numCli) {
-			try {
+	public ResponseEntity<String> deleteClientByNum(@PathVariable("numClient")Long numCli,
+			                                        @RequestHeader HttpHeaders httpHeaders) {
+			
+		  String token = extractBearerTokenFromHttpHeaders(httpHeaders);
+		  if(token == null || !token.equals("valid_token_jwt_ou_autre"))
+			  return new ResponseEntity<String>("pas de jeton, UNAUTHORIZED",HttpStatus.UNAUTHORIZED);
+		  try {
 				clientService.supprimerClient(numCli);
 				return new ResponseEntity<String>("suppression effectuee",HttpStatus.OK);
 			} catch (Exception e) {
 				e.printStackTrace();
 				return new ResponseEntity<String>("echec suppression",HttpStatus.NOT_FOUND);
-			}		
-	}*/
+			} 		
+	}
 	
+	/*
 	//http://localhost:8080/backend-spring/rest/client/1_ou_2 DELETE
 	@RequestMapping(value="/{numClient}" , method=RequestMethod.DELETE)
 	public String deleteClientByNum(@PathVariable("numClient")Long numCli) {
@@ -99,6 +125,8 @@ public class ClientRestCtrl {
 			//En cas d'exception non rattrapée , le framework Spring-mvc
 			//retournera automatiquement le bon status d'erreur 404
 	}
+	*/
 	
+		
 
 }
