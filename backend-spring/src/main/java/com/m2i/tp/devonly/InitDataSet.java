@@ -20,7 +20,7 @@ public class InitDataSet {
 	@PostConstruct //appelée après constrcteur et après injections (paramétrées via autowired)
 	private void initJeuxDonneesEnModeDeveloppement() {
 		Client c1 = new Client(); c1.setUsername("user1");
-		c1.setPassword("pwd1"); c1.setRoles("user,admin");
+		c1.setPassword("pwd1"); c1.setRoles("user,admin,role3");
 		clientService.sauvegarderClient(c1);
 		
 		Client c2 = new Client(); c2.setUsername("user2");
