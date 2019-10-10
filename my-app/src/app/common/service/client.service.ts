@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { Client } from '../data/login';
+import { Client, Login, AuthResponse } from '../data/login';
 import { Observable, of } from 'rxjs';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -10,6 +10,14 @@ export class ClientService {
 
   constructor(private http: HttpClient) { }
 
+  private _headers = new HttpHeaders({'Content-Type': 'application/json'});
+  
+  public postLogin(login:Login) : Observable<AuthResponse> {
+     let wsUrl = "backend-spring/rest/client/verifAuth";
+     return this.http.post<AuthResponse>(wsUrl,
+                                        login,
+                                        {headers: this._headers});
+  }
 
   public rechercherClients() : Observable< Client[] > {
     //return of(this.tempClients);

@@ -4,6 +4,12 @@ export class Login {
     roles: string;
 }
 
+export class AuthResponse{
+    token :string;
+	message : string;
+	ok:boolean;
+}
+
 export class Client extends Login{
     constructor(username : string =null,
                 password : string =null,

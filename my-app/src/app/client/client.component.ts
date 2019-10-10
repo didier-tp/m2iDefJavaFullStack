@@ -15,10 +15,13 @@ export class ClientComponent implements OnInit {
   message : string;
 
   onLoadClient(){
+    this.message=null;
+   
     this.clientService.rechercherClients()
         .subscribe(
              (listeCli : Client[]) => { this.clients = listeCli; } ,
-             (err) => { console.log(err); }
+             (err) => {  this.clients = []; console.log(err);
+                        this.message="echec " }
         );
   }
 
