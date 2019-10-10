@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { PreferencesService } from '../common/service/preferences.service';
 
 @Component({
   selector: 'app-header',
@@ -7,9 +8,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HeaderComponent implements OnInit {
 
-  constructor() { }
+  constructor(public preferencesService : PreferencesService) {
+    //injection de dépendance via constructor angular
+    //= équivalent à @Autowired de Spring
+   }
 
   ngOnInit() {
+    //équivalent angular d'une méthode java préfixée par @PostConstruct()
   }
 
 }

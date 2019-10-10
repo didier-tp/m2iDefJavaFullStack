@@ -11,6 +11,7 @@ import { TvaComponent } from './basic/tva/tva.component';
 import { FormsModule } from '@angular/forms';
 import { LoginComponent } from './login/login.component';
 import { TabsModule } from 'ngx-bootstrap/tabs';
+import { ClientComponent } from './client/client.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { TabsModule } from 'ngx-bootstrap/tabs';
     FooterComponent,
     BasicComponent,
     TvaComponent,
-    LoginComponent
+    LoginComponent,
+    ClientComponent
   ],
   imports: [
     BrowserModule,
