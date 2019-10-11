@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.m2i.tp.dto.AuthResponse;
+import com.m2i.tp.dto.GenericResponse;
 import com.m2i.tp.entity.Client;
 import com.m2i.tp.service.ClientService;
 
@@ -96,19 +97,22 @@ public class ClientRestCtrl {
 	
 	
 	//http://localhost:8080/backend-spring/rest/client/1_ou_2 DELETE
-	@RequestMapping(value="/{numClient}" , method=RequestMethod.DELETE)
-	public ResponseEntity<String> deleteClientByNum(@PathVariable("numClient")Long numCli,
+	@RequestMapping(value="/{numClient}" , method=RequestMethod.DELETE )
+	public ResponseEntity<GenericResponse> deleteClientByNum(@PathVariable("numClient")Long numCli,
 			                                        @RequestHeader HttpHeaders httpHeaders) {
 			
 		  String token = extractBearerTokenFromHttpHeaders(httpHeaders);
 		  if(token == null || !token.equals("valid_token_jwt_ou_autre"))
-			  return new ResponseEntity<String>("pas de jeton, UNAUTHORIZED",HttpStatus.UNAUTHORIZED);
+			  return new ResponseEntity<GenericResponse>(new GenericResponse("pas de jeton, UNAUTHORIZED"),
+					                                      HttpStatus.UNAUTHORIZED);
 		  try {
 				clientService.supprimerClient(numCli);
-				return new ResponseEntity<String>("suppression effectuee",HttpStatus.OK);
+				return new ResponseEntity<GenericResponse>(new GenericResponse("suppression effectuee"),
+						                                   HttpStatus.OK);
 			} catch (Exception e) {
 				e.printStackTrace();
-				return new ResponseEntity<String>("echec suppression",HttpStatus.NOT_FOUND);
+				return new ResponseEntity<GenericResponse>(new GenericResponse("echec suppression"),
+						                                   HttpStatus.NOT_FOUND);
 			} 		
 	}
 	

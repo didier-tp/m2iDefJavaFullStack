@@ -11,6 +11,8 @@ export class AuthResponse{
 }
 
 export class Client extends Login{
+    numero : number = null;
+    
     constructor(username : string =null,
                 password : string =null,
                 roles : string = "user"){

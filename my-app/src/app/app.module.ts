@@ -13,6 +13,8 @@ import { LoginComponent } from './login/login.component';
 import { TabsModule } from 'ngx-bootstrap/tabs';
 import { ClientComponent } from './client/client.component';
 import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { MyAuthInterceptor } from './common/interceptor/MyAuthInterceptor';
 
 @NgModule({
   declarations: [
@@ -31,7 +33,12 @@ import { HttpClientModule } from '@angular/common/http';
     TabsModule.forRoot(),
     HttpClientModule
   ],
-  providers: [],
+  providers: [{
+      provide: HTTP_INTERCEPTORS,
+      useClass: MyAuthInterceptor,
+      multi: true
+      }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

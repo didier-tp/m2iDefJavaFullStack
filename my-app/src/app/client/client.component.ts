@@ -14,6 +14,17 @@ export class ClientComponent implements OnInit {
   clients : Client[] = [];
   message : string;
 
+  onSupprimer(c:Client){
+    this.clientService.deleteClient(c.numero)
+         .subscribe(
+           (msgObj) => { console.log(JSON.stringify(msgObj)); 
+                        this.message="suppression ok " + JSON.stringify(msgObj);
+                        this.onLoadClient(); },
+           (err) => { console.log("err:"+JSON.stringify(err)); 
+                      this.message="echec suppression"; }
+         );
+  }
+
   onLoadClient(){
     this.message=null;
    
