@@ -3,7 +3,7 @@
 <table border="1">
    <tr><th>username</th><th>password</th><th>roles</th><th>action</th></tr>
     <tr *ngFor="let c of clients">
-        <td>{{c.username}}</td> <td>{{c.password}}</td><td>{{c.roles}}</td>
+        <td>{{c.username}}</td> <td>{{c.password}}</td><td>{{c.roles | uppercase}}</td>
         <td>
           <input type="button" value="supprimer"  (click)="onSupprimer(c)"/>
         </td>

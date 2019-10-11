@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Client } from '../common/data/login';
 import { ClientService } from '../common/service/client.service';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-client',
@@ -29,6 +30,11 @@ export class ClientComponent implements OnInit {
     this.message=null;
    
     this.clientService.rechercherClients()
+        .pipe(
+             map ((tabCli)=>{ tabCli.sort( (c1,c2)=>{ if(c1.roles < c2.roles) return -1; 
+                                                      else return 1;}); 
+                              return tabCli;})
+        )
         .subscribe(
              (listeCli : Client[]) => { this.clients = listeCli; } ,
              (err) => {  this.clients = []; console.log(err);

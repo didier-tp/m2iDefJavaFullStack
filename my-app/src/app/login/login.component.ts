@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Login, AuthResponse } from '../common/data/login';
 import { ClientService } from '../common/service/client.service';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -25,9 +26,14 @@ export class LoginComponent implements OnInit {
   private gererAuthResponse(authResp : AuthResponse){
        this.message = authResp.message;
        console.log(JSON.stringify(authResp));
+       if(authResp.ok){
+        let link = ['/client']; //defini dans src/app/app.routing.module.ts
+        this.router.navigate( link );
+       }
   }
 
-  constructor(private clientService : ClientService) { }
+  constructor(private clientService : ClientService,
+              private router : Router) { }
 
   ngOnInit() {
   }
