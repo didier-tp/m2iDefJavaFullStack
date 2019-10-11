@@ -1,4 +1,4 @@
-{ "/backend-spring" : { "secure" : "false" ,
-                        "target" : "http://localhost:8080" 
-                      }
+{ "/rest" : { "secure" : "false" ,
+                        "target" : "http://localhost:8080/backend-spring" 
+            }
 }

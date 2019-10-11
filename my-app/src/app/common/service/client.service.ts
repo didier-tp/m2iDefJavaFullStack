@@ -14,12 +14,12 @@ export class ClientService {
   private _headers = new HttpHeaders({'Content-Type': 'application/json'});
   
   public deleteClient(numClient:number) : Observable<any> {
-    let wsUrl = "backend-spring/rest/client/"+numClient;
+    let wsUrl = "rest/client/"+numClient;
     return this.http.delete(wsUrl);
   }
 
   public postLogin(login:Login) : Observable<AuthResponse> {
-     let wsUrl = "backend-spring/rest/client/verifAuth";
+     let wsUrl = "rest/client/verifAuth";
      return this.http.post<AuthResponse>(wsUrl,
                                         login,
                                         {headers: this._headers})
@@ -38,7 +38,7 @@ export class ClientService {
 
   public rechercherClients() : Observable< Client[] > {
     //return of(this.tempClients);
-    let wsUrl = "backend-spring/rest/client";
+    let wsUrl = "rest/client";
     //NB: cette url sera préfixée par http://localhost:8080 ou autre
     //selon proxy.conf.json (ng serve --proxy-config )
     return this.http.get<Client[]>(wsUrl);
